@@ -71,7 +71,7 @@ void FirstPersonCameraScript::move(float speedDelta) {
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		desiredPosition += speedDelta * cam->orientation;
+		desiredPosition += speedDelta * glm::vec3 (cam->orientation.x, 0.f, cam->orientation.z);
 		dir = 1;
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
@@ -81,7 +81,7 @@ void FirstPersonCameraScript::move(float speedDelta) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		desiredPosition += speedDelta * -cam->orientation;
+		desiredPosition += speedDelta * -glm::vec3(cam->orientation.x, 0.f, cam->orientation.z);
 		dir = 3;
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
@@ -116,7 +116,7 @@ void FirstPersonCameraScript::move(float speedDelta) {
 	jump(&desiredPosition, speedDelta);
 
 	if (!isJumping) {
-		desiredPosition += speedDelta * -cam->up;
+		desiredPosition += speedDelta * -cam->up * 2.f;
 	}
 
 	if (glfwGetTime() > dashStart + 2.f) {
@@ -204,10 +204,10 @@ void FirstPersonCameraScript::tickScript(float deltaTime) {
 	yaw += xoffset;
 	pitch += yoffset;
 
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
+	if (pitch > 70.0f)
+		pitch = 70.0f;
+	if (pitch < -70.0f)
+		pitch = -70.0f;
 
 	glm::vec3 front;
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
