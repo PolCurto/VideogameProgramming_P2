@@ -55,7 +55,7 @@ void SetupGLFW() {
 
 bool SetupWindow() {
 	//Create a GLFWwindow with size 800x800
-	window = glfwCreateWindow(800, 800, "ProgramacioVideojocs", NULL, NULL);
+	window = glfwCreateWindow(width, height, "ProgramacioVideojocs", NULL, NULL);
 	if (window == NULL) {
 
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -66,9 +66,11 @@ bool SetupWindow() {
 	// Make window part of the current context
 	glfwMakeContextCurrent(window);
 
+	glfwSetWindowPos(window, 100, 100);
+
 	//Load GLAD and specify the viewport
 	gladLoadGL();
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, 800, 800);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -144,14 +146,14 @@ void SetupWorld() {
 
 	
 	string map[] = { 
-		"#-#-#-#---", 
-		"#--#---#-#", 
-		"#-#--#-#-#",
-		"#-#--#---#",
-		"#--#---#-#",
-		"#--#-----#",
-		"##-##--#-#",
-		"##----#--#", 
+		"#---------", 
+		"-------#-#", 
+		"---------#",
+		"#---------",
+		"----------",
+		"---#-----#",
+		"##-----#-#",
+		"-----#---", 
 		"#--#-----#", 
 		"##########" 
 	};
@@ -159,7 +161,7 @@ void SetupWorld() {
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
 			if (map[i][j] == '#') {
-				Entity* wall = CreateEntity3DWithMesh(glm::vec3(i*5, -0.5, j*5), 2, "Meshes/cube.obj", "Textures/wall.png");
+				Entity* wall = CreateEntity3DWithMesh(glm::vec3(i*4, -0.5, j*4), 2, "Meshes/cube.obj", "Textures/wall.png");
 				wall->assign<CubeCollider>(2.5, 2.5, 2.5);
 			}
 		}
@@ -201,6 +203,12 @@ int main() {
 
 		// Take care of GLFW events
 		glfwPollEvents();
+
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		{
+			break;
+		}
+
 	}
 
 	// Cleanup

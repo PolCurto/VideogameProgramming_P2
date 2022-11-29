@@ -15,9 +15,9 @@ public:
 
     void move(float speedDelta);
 
-    glm::vec3 jump(glm::vec3 desiredPosition, float speedDelta);
+    void jump(glm::vec3* desiredPosition, float speedDelta);
 
-    glm::vec3 dash(glm::vec3 desiredPosition, float speedDelta);
+    void dash(glm::vec3* desiredPosition, float speedDelta);
 
     void tickScript(float deltaTime) override;
 
@@ -25,7 +25,7 @@ private:
 
     glm::vec3 direction = glm::vec3(1., 0., 0.);
 
-    bool firstClick = true;
+    bool startGame = true;
     float speed = 0.01f;
     float sensitivity = 100.0f;
     bool isJumping = false;
@@ -38,5 +38,6 @@ private:
     int dir = 1;
     bool canDash = true;
     int numDashes = 10;
+    bool aux = true;
 
 };

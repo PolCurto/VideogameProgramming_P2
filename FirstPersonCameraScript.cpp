@@ -1,11 +1,16 @@
 #include "FirstPersonCameraScript.h"
 #include <chrono>
 
+float lastX = 400;
+float lastY = 400;
+float yaw = 0.0f;
+float pitch = 0.0f;
+
 void FirstPersonCameraScript::startScript() {
 
 }
 
-glm::vec3 FirstPersonCameraScript::jump(glm::vec3 desiredPosition, float speedDelta) {
+void FirstPersonCameraScript::jump(glm::vec3* desiredPosition, float speedDelta) {
 	
 	ComponentHandle<Camera> cam = entity->get<Camera>();
 	
@@ -13,55 +18,47 @@ glm::vec3 FirstPersonCameraScript::jump(glm::vec3 desiredPosition, float speedDe
 
 		if (glfwGetTime() - jumpStart < 0.5f) {
 
-			desiredPosition += speedDelta * cam->up * (float)((0.5 - (glfwGetTime() - jumpStart)) * 2);
+			*desiredPosition += speedDelta * cam->up * (float)((0.5 - (glfwGetTime() - jumpStart)) * 2);
 		}
 		else {
 			if (glfwGetTime() - jumpStart < 1.f) {
-				desiredPosition += speedDelta * -cam->up * (float)(((glfwGetTime() - jumpStart) - 0.5) * 2);
+				*desiredPosition += speedDelta * -cam->up * (float)(((glfwGetTime() - jumpStart) - 0.5) * 2);
 			}
 		}
 		if (glfwGetTime() - jumpStart >= 1.f) {
 			isJumping = false;
 		}
 	}
-
-	return desiredPosition;
 }
 
-glm::vec3 FirstPersonCameraScript::dash(glm::vec3 desiredPosition, float speedDelta) {
+void FirstPersonCameraScript::dash(glm::vec3* desiredPosition, float speedDelta) {
 
 	ComponentHandle<Camera> cam = entity->get<Camera>();
 
 	float dashspeed = 20;
 
 	if (numDashes < 1) {
-		return desiredPosition;
+		return;
 	}
 
 	numDashes--;
 
-
-	cout<<"ola"<<endl;
-
 	switch (dir) {
 	case 1:
-		desiredPosition += speedDelta * cam->orientation * dashspeed;
+		*desiredPosition += speedDelta * cam->orientation * dashspeed;
 		break;
 	case 2:
-		desiredPosition += speedDelta * glm::normalize(glm::cross(cam->orientation, cam->up)) * dashspeed;
+		*desiredPosition += speedDelta * glm::normalize(glm::cross(cam->orientation, cam->up)) * dashspeed;
 		break;
 	case 3:
-		desiredPosition += speedDelta * -cam->orientation * dashspeed;
+		*desiredPosition += speedDelta * -cam->orientation * dashspeed;
 		break;
 	case 4:
-		desiredPosition += speedDelta * -glm::normalize(glm::cross(cam->orientation, cam->up)) * dashspeed;
+		*desiredPosition += speedDelta * -glm::normalize(glm::cross(cam->orientation, cam->up)) * dashspeed;
 		break;
 	}
 
 	dashStart = glfwGetTime();
-
-	return desiredPosition;
-
 }
 
 
@@ -113,10 +110,10 @@ void FirstPersonCameraScript::move(float speedDelta) {
 		dir = 1;
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-		desiredPosition = dash(desiredPosition, speedDelta);
+		dash(&desiredPosition, speedDelta);
 	}
 
-	desiredPosition = jump(desiredPosition, speedDelta);
+	jump(&desiredPosition, speedDelta);
 
 	if (!isJumping) {
 		desiredPosition += speedDelta * -cam->up;
@@ -177,51 +174,45 @@ void FirstPersonCameraScript::tickScript(float deltaTime) {
 
 	move(speedDelta);
 
-	// Handles mouse inputs
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	// Hides mouse cursor
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+	// Prevents camera from jumping on the first click
+	if (startGame)
 	{
-		// Hides mouse cursor
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-
-		// Prevents camera from jumping on the first click
-		if (firstClick)
-		{
-			glfwSetCursorPos(window, (width / 2), (height / 2));
-			firstClick = false;
-		}
-
-		// Stores the coordinates of the cursor
-		double mouseX;
-		double mouseY;
-		// Fetches the coordinates of the cursor
-		glfwGetCursorPos(window, &mouseX, &mouseY);
-
-		// Normalizes and shifts the coordinates of the cursor such that they begin in the middle of the screen
-		// and then "transforms" them into degrees 
-		float rotX = sensitivity * (float)(mouseY - (height / 2)) / height;
-		float rotY = sensitivity * (float)(mouseX - (width / 2)) / width;
-
-		// Calculates upcoming vertical change in the Orientation
-		glm::mat4 m = glm::mat4(1.0f);
-
-		m = glm::rotate(m, glm::radians(-rotX), glm::normalize(glm::cross(cam->orientation, cam->up)));
-
-		// Rotates the Orientation left and right
-		glm::mat4 m2 = glm::mat4(1.0f);
-
-		m2 = glm::rotate(m2, glm::radians(-rotY), cam->up);
-
-		cam->orientation = m2 * glm::vec4(cam->orientation, 1.);
-
-		// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
 		glfwSetCursorPos(window, (width / 2), (height / 2));
-	}
-	else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
-	{
-		// Unhides cursor since camera is not looking around anymore
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		// Makes sure the next time the camera looks around it doesn't jump
-		firstClick = true;
+		startGame = false;
 	}
 
+	// Stores the coordinates of the cursor
+	double mouseX;
+	double mouseY;
+
+	// Fetches the coordinates of the cursor
+	glfwGetCursorPos(window, &mouseX, &mouseY);
+
+
+	float xoffset = mouseX - lastX;
+	float yoffset = lastY - mouseY;
+	lastX = mouseX;
+	lastY = mouseY;
+
+	float sensitivity = 0.1f;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+	if (pitch < -89.0f)
+		pitch = -89.0f;
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+	cam->orientation = front;
 }
