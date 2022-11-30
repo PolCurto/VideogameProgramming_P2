@@ -147,8 +147,10 @@
   <ItemGroup>
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="Enemy1Script.cpp" />
     <ClCompile Include="FirstPersonCameraScript.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="LifeBarScript.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshManager.cpp" />
@@ -180,7 +182,9 @@
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="Enemy1Script.h" />
     <ClInclude Include="FirstPersonCameraScript.h" />
+    <ClInclude Include="LifeBarScript.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="ScriptManager.h" />

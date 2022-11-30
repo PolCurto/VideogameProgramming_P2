@@ -7,7 +7,11 @@ float yaw = 0.0f;
 float pitch = 0.0f;
 
 void FirstPersonCameraScript::startScript() {
+}
 
+
+void FirstPersonCameraScript::shoot() {
+	
 }
 
 void FirstPersonCameraScript::jump(glm::vec3* desiredPosition, float speedDelta) {
@@ -109,8 +113,13 @@ void FirstPersonCameraScript::move(float speedDelta) {
 	if (!(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) && !(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) && !(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)) {
 		dir = 1;
 	}
+
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
 		dash(&desiredPosition, speedDelta);
+	}
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+		shoot();
 	}
 
 	jump(&desiredPosition, speedDelta);
@@ -163,26 +172,9 @@ void FirstPersonCameraScript::move(float speedDelta) {
 
 }
 
-void FirstPersonCameraScript::tickScript(float deltaTime) {
-
-	float speedDelta = speed * deltaTime;
-
-	float width = 800;
-	float height = 800;
+void FirstPersonCameraScript::moveView() {
 
 	ComponentHandle<Camera> cam = entity->get<Camera>();
-
-	move(speedDelta);
-
-	// Hides mouse cursor
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	// Prevents camera from jumping on the first click
-	if (startGame)
-	{
-		glfwSetCursorPos(window, (width / 2), (height / 2));
-		startGame = false;
-	}
 
 	// Stores the coordinates of the cursor
 	double mouseX;
@@ -215,4 +207,30 @@ void FirstPersonCameraScript::tickScript(float deltaTime) {
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
 	cam->orientation = front;
+}
+
+void FirstPersonCameraScript::tickScript(float deltaTime) {
+
+	float speedDelta = speed * deltaTime;
+
+	float width = 800;
+	float height = 800;
+
+	ComponentHandle<Camera> cam = entity->get<Camera>();
+
+	move(speedDelta);
+
+	// Hides mouse cursor
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+	// Prevents camera from jumping on the first click
+	if (startGame)
+	{
+		glfwSetCursorPos(window, (width / 2), (height / 2));
+		startGame = false;
+	}
+
+	moveView();
+
+	
 }

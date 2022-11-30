@@ -20,6 +20,7 @@
 #include "ScriptManager.h"
 #include "FirstPersonCameraScript.h"
 #include "Script.h"
+#include "LifeBarScript.h"
 
 #include "ECS.h"
 #include "SpawnerScript.h"
@@ -133,7 +134,9 @@ void SetupWorld() {
 
 	rs->setCamera(ent);
 
-	//Entity* sprite = CreateEntity2D(glm::vec2(100., 100.), 0.f, 1.f, "Textures/science_dog.png", glm::vec3(1., 1., 1.), false, glm::vec2(100., 100.));
+	Entity* lifeBar = CreateEntity2D(glm::vec2(50, 50), 0.f, 1.f, "Textures/button_yellow.png", glm::vec3(1., 1., 1.), false, glm::vec2(100., 100.));
+	LifeBarScript* lifeBarScript = new LifeBarScript(window, world, lifeBar);
+	lifeBar->assign<ScriptComponent>(scriptManager->AddScript(lifeBarScript));
 
 	/*Entity* spawner = CreateEntity3DEmpty();
 	SpawnerScript* spawner_script = new SpawnerScript(window, world, spawner);
