@@ -143,14 +143,17 @@ void SetupWorld() {
 	PlayerManagerScript* playerManagerScript = new PlayerManagerScript(window, world, playerManager);
 	playerManager->assign<ScriptComponent>(scriptManager->AddScript(playerManagerScript));
 
-	/*Entity* spawner = CreateEntity3DEmpty();
+	Entity* spawner = CreateEntity3DEmpty();
 	SpawnerScript* spawner_script = new SpawnerScript(window, world, spawner);
-	spawner->assign<ScriptComponent>(scriptManager->AddScript(spawner_script));*/
+	spawner->assign<ScriptComponent>(scriptManager->AddScript(spawner_script));
 
 	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/skybox.png");
 
-	Entity* floor = CreateEntity3DWithMesh(glm::vec3(0, -2, 0), 50, "Meshes/plane.obj", "Textures/wall.png");
-	floor->assign < CubeCollider>(50, 1, 50);
+
+	Entity* floor = CreateEntity3DWithMesh(glm::vec3(0, -1, 0), 50, "Meshes/plane.obj", "Textures/wall.png");
+	floor->assign<CubeCollider>(50, 1, 50);
+
+	
 
 	/*
 	string map[] = { 

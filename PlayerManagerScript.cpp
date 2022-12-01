@@ -4,12 +4,17 @@ void PlayerManagerScript::startScript()
 {
 }
 
+Entity* PlayerManagerScript::CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath) {
+	Entity* ent = world->create();
+	ent->assign<Transform3D>(position, scale);
+	ent->assign<MeshComponent>(texFilepath, meshFilepath);
+
+	return ent;
+}
+
 void PlayerManagerScript::shoot() {
 
-	Entity* ent = world->create();
-	ent->assign<Transform3D>(glm::vec3(0., 0., 0.), 1000);
-	ent->assign<MeshComponent>("Meshes/prova.obj", "Textures/wall.png");
-
+	Entity* bullet = CreateEntity3DWithMesh(glm::vec3(0, 2, 0), 0.125, "Meshes/prova.obj", "Textures/wall.png");
 
 }
 
