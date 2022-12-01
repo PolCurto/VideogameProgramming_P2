@@ -1,5 +1,4 @@
 #include "Enemy1Script.h"
-#include <chrono>
 
 void Enemy1Script::startScript() {
 }

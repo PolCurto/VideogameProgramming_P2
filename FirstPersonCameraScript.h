@@ -13,8 +13,6 @@ public:
 
     void startScript() override;
 
-    void shoot();
-
     void move(float speedDelta);
 
     void jump(glm::vec3* desiredPosition, float speedDelta);

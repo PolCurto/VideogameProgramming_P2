@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BulletScript.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="Enemy1Script.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="PlayerManagerScript.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Script.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
@@ -179,6 +181,7 @@
     <None Include="unlit.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BulletScript.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Components.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="LifeBarScript.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="PlayerManagerScript.h" />
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Script.h" />
@@ -201,14 +205,11 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\background_brown.png" />
-    <Image Include="Textures\ball_blue_small.png" />
-    <Image Include="Textures\button_blue.png" />
-    <Image Include="Textures\button_yellow.png" />
-    <Image Include="Textures\cyborgFemaleA.png" />
-    <Image Include="Textures\science_dog.png" />
+    <Image Include="Textures\1_heart.png" />
+    <Image Include="Textures\2_hearts.png" />
+    <Image Include="Textures\3_hearts.png" />
     <Image Include="Textures\skybox.png" />
-    <Image Include="Textures\skybox2.png" />
+    <Image Include="Textures\wall.png" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Meshes\boat_large.obj">
@@ -231,6 +232,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Meshes\plane.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="Meshes\prova.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Meshes\Register.obj">

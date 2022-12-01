@@ -9,11 +9,6 @@ float pitch = 0.0f;
 void FirstPersonCameraScript::startScript() {
 }
 
-
-void FirstPersonCameraScript::shoot() {
-	
-}
-
 void FirstPersonCameraScript::jump(glm::vec3* desiredPosition, float speedDelta) {
 	
 	ComponentHandle<Camera> cam = entity->get<Camera>();
@@ -117,11 +112,6 @@ void FirstPersonCameraScript::move(float speedDelta) {
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
 		dash(&desiredPosition, speedDelta);
 	}
-
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-		shoot();
-	}
-
 	jump(&desiredPosition, speedDelta);
 
 	if (!isJumping) {

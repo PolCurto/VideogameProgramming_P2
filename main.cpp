@@ -21,6 +21,7 @@
 #include "FirstPersonCameraScript.h"
 #include "Script.h"
 #include "LifeBarScript.h"
+#include "PlayerManagerScript.h"
 
 #include "ECS.h"
 #include "SpawnerScript.h"
@@ -134,9 +135,13 @@ void SetupWorld() {
 
 	rs->setCamera(ent);
 
-	Entity* lifeBar = CreateEntity2D(glm::vec2(50, 50), 0.f, 1.f, "Textures/button_yellow.png", glm::vec3(1., 1., 1.), false, glm::vec2(100., 100.));
+	Entity* lifeBar = CreateEntity2D(glm::vec2(50, 20), 0.f, 1.f, "Textures/3_hearts.png", glm::vec3(1., 1., 1.), true);
 	LifeBarScript* lifeBarScript = new LifeBarScript(window, world, lifeBar);
 	lifeBar->assign<ScriptComponent>(scriptManager->AddScript(lifeBarScript));
+
+	Entity* playerManager = CreateEntity3DEmpty();
+	PlayerManagerScript* playerManagerScript = new PlayerManagerScript(window, world, playerManager);
+	playerManager->assign<ScriptComponent>(scriptManager->AddScript(playerManagerScript));
 
 	/*Entity* spawner = CreateEntity3DEmpty();
 	SpawnerScript* spawner_script = new SpawnerScript(window, world, spawner);
@@ -144,10 +149,10 @@ void SetupWorld() {
 
 	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/skybox.png");
 
-	Entity* floor = CreateEntity3DWithMesh(glm::vec3(0, -2, 0), 20, "Meshes/plane.obj", "Textures/wall.png");
-	floor->assign < CubeCollider>(100, 1, 100);
+	Entity* floor = CreateEntity3DWithMesh(glm::vec3(0, -2, 0), 50, "Meshes/plane.obj", "Textures/wall.png");
+	floor->assign < CubeCollider>(50, 1, 50);
 
-	
+	/*
 	string map[] = { 
 		"#---------", 
 		"-------#-#", 
@@ -164,11 +169,11 @@ void SetupWorld() {
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
 			if (map[i][j] == '#') {
-				Entity* wall = CreateEntity3DWithMesh(glm::vec3(i*4, -0.5, j*4), 2, "Meshes/cube.obj", "Textures/wall.png");
+				Entity* wall = CreateEntity3DWithMesh(glm::vec3(i*4, -0.5, j*4), 2, "Meshes/prova.obj", "Textures/wall.png");
 				wall->assign<CubeCollider>(2.5, 2.5, 2.5);
 			}
 		}
-	}
+	}*/
 	
 
 	
