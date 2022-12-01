@@ -35,3 +35,4 @@
 
 # Debug
 **/Debug/*
+/Libraries/include/glm/out/build/x64-Debug
