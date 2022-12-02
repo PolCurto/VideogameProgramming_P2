@@ -1,4 +1,6 @@
 #include "PlayerManagerScript.h"
+#include "BulletScript.h"
+#include "ScriptManager.h"
 
 void PlayerManagerScript::startScript()
 {
@@ -12,9 +14,16 @@ Entity* PlayerManagerScript::CreateEntity3DWithMesh(glm::vec3 position, float sc
 	return ent;
 }
 
+void PlayerManagerScript::setParameters(Entity* player, ScriptManager* scriptManager) {
+	this->player = player;
+	this->scriptManager = scriptManager;
+}
+
 void PlayerManagerScript::shoot() {
 
 	Entity* bullet = CreateEntity3DWithMesh(glm::vec3(0, 2, 0), 0.125, "Meshes/prova.obj", "Textures/wall.png");
+	BulletScript* bulletScript = new BulletScript(window, world, bullet);
+	bullet->assign<ScriptComponent>(scriptManager->AddScript(bulletScript));
 
 }
 

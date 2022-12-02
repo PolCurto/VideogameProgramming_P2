@@ -128,12 +128,12 @@ void SetupWorld() {
 
 	ScriptManager* scriptManager = scriptSystem->getScriptManager();
 
-	Entity* ent = CreateCamera(glm::vec3(0.0f, 2.f, 0.0f));
-	FirstPersonCameraScript* fps = new FirstPersonCameraScript(window, world, ent);
+	Entity* player = CreateCamera(glm::vec3(0.0f, 2.f, 0.0f));
+	FirstPersonCameraScript* fps = new FirstPersonCameraScript(window, world, player);
 	
-	ent->assign<ScriptComponent>(scriptManager->AddScript(fps));
+	player->assign<ScriptComponent>(scriptManager->AddScript(fps));
 
-	rs->setCamera(ent);
+	rs->setCamera(player);
 
 	Entity* lifeBar = CreateEntity2D(glm::vec2(50, 20), 0.f, 1.f, "Textures/3_hearts.png", glm::vec3(1., 1., 1.), true);
 	LifeBarScript* lifeBarScript = new LifeBarScript(window, world, lifeBar);
@@ -142,6 +142,7 @@ void SetupWorld() {
 	Entity* playerManager = CreateEntity3DEmpty();
 	PlayerManagerScript* playerManagerScript = new PlayerManagerScript(window, world, playerManager);
 	playerManager->assign<ScriptComponent>(scriptManager->AddScript(playerManagerScript));
+	playerManagerScript->setParameters(player, scriptManager);
 
 	Entity* spawner = CreateEntity3DEmpty();
 	SpawnerScript* spawner_script = new SpawnerScript(window, world, spawner);

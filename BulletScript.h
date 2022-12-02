@@ -12,11 +12,11 @@ public:
 
     void startScript() override;
 
-    void shoot(float speedDelta);
+    void move(float speedDelta);
 
     void tickScript(float deltaTime) override;
 
 private:
 
-    float speed = 0.01f;
+    float speed = 0.3;
 };
