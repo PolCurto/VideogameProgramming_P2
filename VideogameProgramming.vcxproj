@@ -208,6 +208,7 @@
     <Image Include="Textures\1_heart.png" />
     <Image Include="Textures\2_hearts.png" />
     <Image Include="Textures\3_hearts.png" />
+    <Image Include="Textures\No_Ammo.png" />
     <Image Include="Textures\skybox.png" />
     <Image Include="Textures\wall.png" />
   </ItemGroup>
@@ -234,7 +235,7 @@
     <Object Include="Meshes\plane.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>
-    <Object Include="Meshes\prova.obj">
+    <Object Include="Meshes\bala.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Meshes\Register.obj">

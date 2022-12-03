@@ -12,6 +12,8 @@ public:
 
     void startScript() override;
 
+    void setTarget(Entity* player);
+
     void move(float speedDelta);
 
     void tickScript(float deltaTime) override;
@@ -19,4 +21,9 @@ public:
 private:
 
     float speed = 0.01f;
+
+    Entity* player;
+
+    glm::vec3 currDir;
+
 };

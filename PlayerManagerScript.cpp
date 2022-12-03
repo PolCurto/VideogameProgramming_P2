@@ -21,9 +21,13 @@ void PlayerManagerScript::setParameters(Entity* player, ScriptManager* scriptMan
 
 void PlayerManagerScript::shoot() {
 
-	Entity* bullet = CreateEntity3DWithMesh(glm::vec3(0, 2, 0), 0.125, "Meshes/prova.obj", "Textures/wall.png");
+	ComponentHandle<Camera> cam = player->get<Camera>();
+
+	Entity* bullet = CreateEntity3DWithMesh(glm::vec3(cam->position + (cam->orientation * 1.5f)), 0.125, "Meshes/bala.obj", "Textures/wall.png");
 	BulletScript* bulletScript = new BulletScript(window, world, bullet);
 	bullet->assign<ScriptComponent>(scriptManager->AddScript(bulletScript));
+	bulletScript->setPlayer(player);
+	bullet->assign<CubeCollider>(0.25, 0.25, 0.25);
 
 }
 
@@ -31,9 +35,22 @@ void PlayerManagerScript::shoot() {
 
 void PlayerManagerScript::tickScript(float deltaTime)
 {
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && glfwGetTime() - lastBullet > bulletCd && bullets > 0) {
+		lastBullet = glfwGetTime();
+		bullets--;
 		shoot();
-		cout << "shoot" << endl;
 	}
 
+	if (bullets <= 0 && ammo) {
+		ammo = false;
+		noAmmo = world->create();
+		noAmmo->assign<Transform2D>(glm::vec2(705, 775), 0.f, 20.f);
+		noAmmo->assign<Sprite>("Textures/no_ammo.png", glm::vec3(1., 1., 1.), true);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+		ammo = true;
+		world->destroy(noAmmo);
+		bullets = 20;
+	}
 }

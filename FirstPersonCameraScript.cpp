@@ -124,28 +124,32 @@ void FirstPersonCameraScript::move(float speedDelta) {
 
 	world->each<CubeCollider>([&](Entity* ent, ComponentHandle<CubeCollider> cubeColl) {
 
-		glm::vec3 pos = ent->get<Transform3D>()->position;
+		if (!(ent->getEntityId() == entity->getEntityId())) {
 
-		//Desired position inside cube
-		if (desiredPosition.x < pos.x + cubeColl->width && desiredPosition.x > pos.x - cubeColl->width &&
-			desiredPosition.y < pos.y + cubeColl->height && desiredPosition.y > pos.y - cubeColl->height &&
-			desiredPosition.z < pos.z + cubeColl->length && desiredPosition.z > pos.z - cubeColl->length) {
+			glm::vec3 pos = ent->get<Transform3D>()->position;
 
-			time_t result = time(NULL);
+			//Desired position inside cube
+			if (desiredPosition.x < pos.x + cubeColl->width && desiredPosition.x > pos.x - cubeColl->width &&
+				desiredPosition.y < pos.y + cubeColl->height && desiredPosition.y > pos.y - cubeColl->height &&
+				desiredPosition.z < pos.z + cubeColl->length && desiredPosition.z > pos.z - cubeColl->length) {
 
-			char str[26];
-			ctime_s(str, sizeof str, &result);
+				time_t result = time(NULL);
 
-			if (currentPosition.x <= pos.x - cubeColl->width) desiredPosition.x = pos.x - cubeColl->width;
-			if (currentPosition.x >= pos.x + cubeColl->width) desiredPosition.x = pos.x + cubeColl->width;
-			if (currentPosition.z <= pos.z - cubeColl->length) desiredPosition.z = pos.z - cubeColl->length;
-			if (currentPosition.z >= pos.z + cubeColl->length) desiredPosition.z = pos.z + cubeColl->length;
-			if (currentPosition.y <= pos.y - cubeColl->height) desiredPosition.y = pos.y - cubeColl->height;
-			if (currentPosition.y >= pos.y + cubeColl->height) {
-				desiredPosition.y = pos.y + cubeColl->height;
-				isOnGround = true;
-				numJumps = 2;
+				char str[26];
+				ctime_s(str, sizeof str, &result);
+
+				if (currentPosition.x <= pos.x - cubeColl->width) desiredPosition.x = pos.x - cubeColl->width;
+				if (currentPosition.x >= pos.x + cubeColl->width) desiredPosition.x = pos.x + cubeColl->width;
+				if (currentPosition.z <= pos.z - cubeColl->length) desiredPosition.z = pos.z - cubeColl->length;
+				if (currentPosition.z >= pos.z + cubeColl->length) desiredPosition.z = pos.z + cubeColl->length;
+				if (currentPosition.y <= pos.y - cubeColl->height) desiredPosition.y = pos.y - cubeColl->height;
+				if (currentPosition.y >= pos.y + cubeColl->height) {
+					desiredPosition.y = pos.y + cubeColl->height;
+					isOnGround = true;
+					numJumps = 2;
+				}
 			}
+
 		}
 
 		});

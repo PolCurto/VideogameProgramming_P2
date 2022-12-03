@@ -219,6 +219,9 @@
     <Image Include="Textures\wall.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
+    <Image Include="Textures\No_Ammo.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Object Include="Meshes\cube.obj">
@@ -254,7 +257,7 @@
     <Object Include="Meshes\plane.obj">
       <Filter>Archivos de recursos\Meshes</Filter>
     </Object>
-    <Object Include="Meshes\prova.obj">
+    <Object Include="Meshes\bala.obj">
       <Filter>Archivos de recursos\Meshes</Filter>
     </Object>
   </ItemGroup>

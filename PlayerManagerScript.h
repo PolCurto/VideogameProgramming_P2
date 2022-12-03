@@ -23,7 +23,15 @@ public:
 private:
 
     Entity* player;
+    Entity* noAmmo;
     ScriptManager* scriptManager;
+
+    bool ammo = true;
+
+    float bulletCd = 0.5;
+    float lastBullet = 0;
+
+    int bullets = 20;
 
 };
 
