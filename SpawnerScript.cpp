@@ -29,7 +29,7 @@ void SpawnerScript::tickScript(float deltaTime)
 		cout << "spawn" << endl;
 		t = 0;
 
-		Entity* enemy = CreateEntity3DWithMesh(glm::vec3(20., 0., 0.), 0.5, "Meshes/bala.obj", "Textures/a.png");
+		Entity* enemy = CreateEntity3DWithMesh(glm::vec3(20., 1., 0.), 0.5, "Meshes/bala.obj", "Textures/a.png");
 		Enemy1Script* enemyScript = new Enemy1Script(window, world, enemy);
 		enemy->assign<ScriptComponent>(scriptManager->AddScript(enemyScript));
 		enemyScript->setTarget(target);

@@ -141,10 +141,13 @@ void SetupWorld() {
 	LifeBarScript* lifeBarScript = new LifeBarScript(window, world, lifeBar);
 	lifeBar->assign<ScriptComponent>(scriptManager->AddScript(lifeBarScript));
 
+	Entity* floor = CreateEntity3DWithMesh(glm::vec3(0, 0, 0), 50, "Meshes/plane.obj", "Textures/wall.png");
+	floor->assign<CubeCollider>(50, 1, 50);
+
 	Entity* playerManager = CreateEntity3DEmpty();
 	PlayerManagerScript* playerManagerScript = new PlayerManagerScript(window, world, playerManager);
 	playerManager->assign<ScriptComponent>(scriptManager->AddScript(playerManagerScript));
-	playerManagerScript->setParameters(player, scriptManager);
+	playerManagerScript->setParameters(player, floor, scriptManager);
 
 	Entity* spawner = CreateEntity3DEmpty();
 	SpawnerScript* spawner_script = new SpawnerScript(window, world, spawner);
@@ -154,8 +157,7 @@ void SetupWorld() {
 	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/skybox.png");
 
 
-	Entity* floor = CreateEntity3DWithMesh(glm::vec3(0, 0, 0), 50, "Meshes/plane.obj", "Textures/wall.png");
-	floor->assign<CubeCollider>(50, 1, 50);
+	
 
 	string map[] = { 
 		"----------", 
@@ -215,6 +217,7 @@ int main() {
 
 		// Take care of GLFW events
 		glfwPollEvents();
+
 
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{

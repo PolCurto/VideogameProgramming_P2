@@ -14,6 +14,8 @@ public:
 
     void setTarget(Entity* player);
 
+    void checkCollisions();
+
     void move(float speedDelta);
 
     void tickScript(float deltaTime) override;

@@ -12,7 +12,7 @@ public:
 
     void startScript() override;
 
-    void setPlayer(Entity* player);
+    void setParameters(Entity* player, Entity* floor);
 
     void checkCollisions();
 
@@ -27,4 +27,5 @@ private:
     glm::vec3 dir;
 
     Entity* player;
+    Entity* floor;
 };

@@ -14,9 +14,10 @@ Entity* PlayerManagerScript::CreateEntity3DWithMesh(glm::vec3 position, float sc
 	return ent;
 }
 
-void PlayerManagerScript::setParameters(Entity* player, ScriptManager* scriptManager) {
+void PlayerManagerScript::setParameters(Entity* player, Entity* floor, ScriptManager* scriptManager) {
 	this->player = player;
 	this->scriptManager = scriptManager;
+	this->floor = floor;
 }
 
 void PlayerManagerScript::shoot() {
@@ -26,7 +27,7 @@ void PlayerManagerScript::shoot() {
 	Entity* bullet = CreateEntity3DWithMesh(glm::vec3(cam->position + (cam->orientation * 1.5f)), 0.125, "Meshes/bala.obj", "Textures/wall.png");
 	BulletScript* bulletScript = new BulletScript(window, world, bullet);
 	bullet->assign<ScriptComponent>(scriptManager->AddScript(bulletScript));
-	bulletScript->setPlayer(player);
+	bulletScript->setParameters(player, floor);
 	bullet->assign<CubeCollider>(0.25, 0.25, 0.25);
 
 }

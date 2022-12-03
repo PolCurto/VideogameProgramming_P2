@@ -12,7 +12,7 @@ class PlayerManagerScript : public Script
 public:
 
     void startScript() override;
-    void setParameters(Entity* player, ScriptManager* scriptManager);
+    void setParameters(Entity* player, Entity* floor, ScriptManager* scriptManager);
 
     Entity* CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath);
 
@@ -23,6 +23,7 @@ public:
 private:
 
     Entity* player;
+    Entity* floor;
     Entity* noAmmo;
     ScriptManager* scriptManager;
 
