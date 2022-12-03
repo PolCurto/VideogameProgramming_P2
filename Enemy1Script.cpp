@@ -11,18 +11,19 @@ void Enemy1Script::checkCollisions() {
 
 	world->each<CubeCollider>([&](Entity* other_ent, ComponentHandle<CubeCollider> other_collider) {
 
-		if (other_ent->getEntityId() == player->getEntityId() || other_ent->getEntityId() == entity->getEntityId()) {
+		if (other_ent->getEntityId() != player->getEntityId()) {
 			return;
 		}
 
-		glm::vec3 pos = other_ent->get<Transform3D>()->position;
+		glm::vec3 pos = other_ent->get<Camera>()->position;
 		ComponentHandle<Transform3D> posBullet = entity->get<Transform3D>();
 
 		if (posBullet->position.x < pos.x + other_collider->width && posBullet->position.x > pos.x - other_collider->width &&
 			posBullet->position.y < pos.y + other_collider->height && posBullet->position.y > pos.y - other_collider->height &&
 			posBullet->position.z < pos.z + other_collider->length && posBullet->position.z > pos.z - other_collider->length) {
 
-			world->destroy(entity);
+			cout << "se acabo" << endl;
+			other_collider->collidedWith = true;
 
 		}
 
@@ -39,7 +40,17 @@ void Enemy1Script::move(float speedDelta) {
 	glm::vec3 currentPosition = enemy->position;
 	glm::vec3 desiredPosition = enemy->position;
 
-	desiredPosition -= currDir * speedDelta;
+	switch (life) {
+	case 3:
+		desiredPosition -= currDir * speedDelta * 0.75f;
+		break;
+	case 2:
+		desiredPosition -= currDir * speedDelta;
+		break;
+	case 1:
+		desiredPosition -= currDir * speedDelta * 1.5f;
+		break;
+	}
 
 	world->each<CubeCollider>([&](Entity* ent, ComponentHandle<CubeCollider> cubeColl) {
 
@@ -76,8 +87,19 @@ void Enemy1Script::move(float speedDelta) {
 
 void Enemy1Script::tickScript(float deltaTime) {
 
+	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
+
 	float speedDelta = speed * deltaTime;
 	move(speedDelta);
 	checkCollisions();
+
+	if (collider->collidedWith) {
+		collider->collidedWith = false;
+		life--;
+	}
+
+	if (life <= 0) {
+		world->destroy(entity);
+	}
 
 }

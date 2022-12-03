@@ -128,7 +128,7 @@ void SetupWorld() {
 
 	ScriptManager* scriptManager = scriptSystem->getScriptManager();
 
-	Entity* player = CreateCamera(glm::vec3(0.0f, 2.f, 0.0f));
+	Entity* player = CreateCamera(glm::vec3(15.0f, 2.f, 15.0f));
 	FirstPersonCameraScript* fps = new FirstPersonCameraScript(window, world, player);
 	
 	player->assign<ScriptComponent>(scriptManager->AddScript(fps));
@@ -141,7 +141,9 @@ void SetupWorld() {
 	LifeBarScript* lifeBarScript = new LifeBarScript(window, world, lifeBar);
 	lifeBar->assign<ScriptComponent>(scriptManager->AddScript(lifeBarScript));
 
-	Entity* floor = CreateEntity3DWithMesh(glm::vec3(0, 0, 0), 50, "Meshes/plane.obj", "Textures/wall.png");
+	fps->setLifeBar(lifeBar);
+
+	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, 0, 52), 50, "Meshes/plane.obj", "Textures/wall.png");
 	floor->assign<CubeCollider>(50, 1, 50);
 
 	Entity* playerManager = CreateEntity3DEmpty();
@@ -158,22 +160,41 @@ void SetupWorld() {
 
 
 	
-
+	//28x28
 	string map[] = { 
-		"----------", 
-		"----------", 
-		"----------",
-		"----------",
-		"----------",
-		"----------",
-		"----------",
-		"----------", 
-		"-------#--", 
-		"----------" 
+		"############################", 
+		"#--------------------------#", 
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"#--------------------------#",
+		"############################",
+
 	};
 
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
+	for (int i = 0; i < 28; i++) {
+		for (int j = 0; j < 28; j++) {
 			if (map[i][j] == '#') {
 				Entity* wall = CreateEntity3DWithMesh(glm::vec3(i*4, 0, j*4), 2, "Meshes/cube.obj", "Textures/wall.png");
 				wall->assign<CubeCollider>(2.5, 2.5, 2.5);

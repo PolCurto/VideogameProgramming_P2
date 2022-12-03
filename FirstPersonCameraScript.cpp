@@ -1,12 +1,11 @@
 #include "FirstPersonCameraScript.h"
 #include <chrono>
 
-float lastX = 400;
-float lastY = 400;
-float yaw = 0.0f;
-float pitch = 0.0f;
-
 void FirstPersonCameraScript::startScript() {
+}
+
+void FirstPersonCameraScript::setLifeBar(Entity* lifeBar) {
+	this->lifeBar = lifeBar;
 }
 
 void FirstPersonCameraScript::jump(glm::vec3* desiredPosition, float speedDelta) {
@@ -203,6 +202,36 @@ void FirstPersonCameraScript::moveView() {
 	cam->orientation = front;
 }
 
+void FirstPersonCameraScript::checkHits() {
+	
+	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
+
+	ComponentHandle<Sprite> spr = lifeBar->get<Sprite>();
+
+	if (vulnerable) {
+		if (collider->collidedWith) {
+			collider->collidedWith = false;
+			vulnerable = false;
+			lastVulnerable = glfwGetTime();
+			life--;
+		}
+	}
+
+	if (life == 2) {
+		spr->filepath = "Textures/2_hearts.png";
+	}
+	if (life == 1) {
+		spr->filepath = "Textures/1_heart.png";
+	}
+	if (life <= 0) {
+		alive = false;
+	}
+
+	if (glfwGetTime() - lastVulnerable > 2) {
+		vulnerable = true;
+	}
+}
+
 void FirstPersonCameraScript::tickScript(float deltaTime) {
 
 	float speedDelta = speed * deltaTime;
@@ -225,6 +254,7 @@ void FirstPersonCameraScript::tickScript(float deltaTime) {
 	}
 
 	moveView();
+	checkHits();
 
 	
 }

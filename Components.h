@@ -102,6 +102,8 @@ struct CubeCollider
     float width = 0;
     float height = 0;
     float length = 0;
+    bool collidedWith = false;
+
 };
 
 struct ScriptComponent

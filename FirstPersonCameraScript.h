@@ -13,17 +13,23 @@ public:
 
     void startScript() override;
 
+    void setLifeBar(Entity* lifeBar);
+
     void move(float speedDelta);
 
     void jump(glm::vec3* desiredPosition, float speedDelta);
 
     void dash(glm::vec3* desiredPosition, float speedDelta);
 
+    void checkHits();
+
     void moveView();
 
     void tickScript(float deltaTime) override;
 
 private:
+
+    Entity* lifeBar;
 
     glm::vec3 direction = glm::vec3(1., 0., 0.);
     
@@ -40,8 +46,17 @@ private:
     bool isOnGround = true;
     bool canDash = true;
     bool canShoot = true;
+    bool vulnerable = true;
+    bool alive = true;
 
     int dir = 1;
     int numJumps = 2;
     int numDashes = 10;
+    int life = 3;
+
+    float lastX = 400;
+    float lastY = 400;
+    float yaw = 0.0f;
+    float pitch = 0.0f;
+    float lastVulnerable = 0;
 };

@@ -22,10 +22,13 @@ public:
 
 private:
 
-    float speed = 0.01f;
 
     Entity* player;
 
     glm::vec3 currDir;
+
+    float speed = 0.01f;
+    int life = 3;
+
 
 };

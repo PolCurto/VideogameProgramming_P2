@@ -28,6 +28,7 @@ void BulletScript::checkCollisions() {
 			posBullet->position.y < pos.y + other_collider->height && posBullet->position.y > pos.y - other_collider->height &&
 			posBullet->position.z < pos.z + other_collider->length && posBullet->position.z > pos.z - other_collider->length) {
 
+			other_collider->collidedWith = true;
 			world->destroy(entity);
 
 		}
