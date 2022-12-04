@@ -19,12 +19,13 @@ public:
 
 private:
 
-    float delay = 5000.f;
-    float t = 0.;
+    float delay1 = 2500.f;
+    float delay2 = 5000.f;
+    float t1 = 0;
+    float t2 = 0;
     int counter = 0;
 
     ScriptManager* scriptManager;
     Entity* target;
-
 
 };

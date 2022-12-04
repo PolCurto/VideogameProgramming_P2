@@ -15,6 +15,8 @@ public:
 
     void setParameters(Entity* lifeBar, Entity* powerUp);
 
+    bool isPoweredUp();
+
     void checkPowerUp();
 
     void move(float speedDelta);

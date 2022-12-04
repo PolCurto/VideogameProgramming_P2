@@ -1,5 +1,6 @@
 #pragma once
 #include "Script.h"
+#include "FirstPersonCameraScript.h"
 #include "ScriptManager.h"
 
 using namespace std;
@@ -12,7 +13,7 @@ class PlayerManagerScript : public Script
 public:
 
     void startScript() override;
-    void setParameters(Entity* player, Entity* floor, ScriptManager* scriptManager);
+    void setParameters(Entity* player, Entity* floor, FirstPersonCameraScript* fps, ScriptManager* scriptManager);
 
     Entity* CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath);
 
@@ -25,6 +26,7 @@ private:
     Entity* player;
     Entity* floor;
     Entity* noAmmo;
+    FirstPersonCameraScript* fps;
     ScriptManager* scriptManager;
 
     bool ammo = true;

@@ -9,6 +9,10 @@ void FirstPersonCameraScript::setParameters(Entity* lifeBar, Entity* powerUp) {
 	this->powerUp = powerUp;
 }
 
+bool FirstPersonCameraScript::isPoweredUp() {
+	return poweredUp;
+}
+
 void FirstPersonCameraScript::checkPowerUp() {
 
 	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
@@ -199,6 +203,8 @@ void FirstPersonCameraScript::move(float speedDelta) {
 void FirstPersonCameraScript::moveView() {
 
 	ComponentHandle<Camera> cam = entity->get<Camera>();
+
+	cout << cam->position.x << " , " << cam->position.z << endl;
 
 	// Stores the coordinates of the cursor
 	double mouseX;

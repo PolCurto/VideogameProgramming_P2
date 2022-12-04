@@ -129,7 +129,7 @@ void SetupWorld() {
 
 	ScriptManager* scriptManager = scriptSystem->getScriptManager();
 
-	Entity* player = CreateCamera(glm::vec3(52.0f, 2.f, 58.0f));
+	Entity* player = CreateCamera(glm::vec3(52.0f, 2.f, 53.0f));
 	FirstPersonCameraScript* fps = new FirstPersonCameraScript(window, world, player);
 	
 	player->assign<ScriptComponent>(scriptManager->AddScript(fps));
@@ -145,7 +145,7 @@ void SetupWorld() {
 	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -4, 52), 75, "Meshes/plane.obj", "Textures/wall.png");
 	floor->assign<CubeCollider>(75, 1, 75);
 
-	Entity* powerUp = CreateEntity3DWithMesh(glm::vec3(52, -3, 52), 1, "Meshes/teapot2.obj", "Textures/skybox.png");
+	Entity* powerUp = CreateEntity3DWithMesh(glm::vec3(60, -3, 52), 1, "Meshes/teapot2.obj", "Textures/skybox.png");
 	PowerUpScript* powerUpScript = new PowerUpScript(window, world, powerUp);
 	powerUp->assign<ScriptComponent>(scriptManager->AddScript(powerUpScript));
 	powerUp->assign<CubeCollider>(1, 1, 1);
@@ -155,7 +155,7 @@ void SetupWorld() {
 	Entity* playerManager = CreateEntity3DEmpty();
 	PlayerManagerScript* playerManagerScript = new PlayerManagerScript(window, world, playerManager);
 	playerManager->assign<ScriptComponent>(scriptManager->AddScript(playerManagerScript));
-	playerManagerScript->setParameters(player, floor, scriptManager);
+	playerManagerScript->setParameters(player, floor, fps, scriptManager);
 
 	Entity* spawner = CreateEntity3DEmpty();
 	SpawnerScript* spawner_script = new SpawnerScript(window, world, spawner);
@@ -171,29 +171,26 @@ void SetupWorld() {
 	
 	
 	string map[] = { 
-		"##################", 
-		"#----------------#", 
-		"#----------------#",
-		"#----------------#",
-		"#----------------#",
-		"#----------------#",
-		"#----------------#",
-		"!----------------!",
-		"!----------------!"
-		"!----------------!",
-		"#----------------#",
-		"#----------------#",
-		"#----------------#",
-		"#----------------#",
-		"#----------------#",
-		"#----------------#",
-		"##################",
+		"##############", 
+		"#------------#", 
+		"#------------#",
+		"#------------#",
+		"#------------#",
+		"#------------#",
+		"!------------!",
+		"!------------!",
+		"#------------#",
+		"#------------#",
+		"#------------#",
+		"#------------#",
+		"#------------#",
+		"##############",
 
 	};
 
 	for (int k = 0; k < 3; k++) {
-		for (int i = 0; i < 16; i++) {
-			for (int j = 0; j < 18; j++) {
+		for (int i = 0; i < 14; i++) {
+			for (int j = 0; j < 14; j++) {
 				
 				if (map[i][j] == '!' && k < 1) {
 					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 8, k * 8, j * 8), 4, "Meshes/cube2.obj", "");

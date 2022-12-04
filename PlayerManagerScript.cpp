@@ -15,10 +15,11 @@ Entity* PlayerManagerScript::CreateEntity3DWithMesh(glm::vec3 position, float sc
 	return ent;
 }
 
-void PlayerManagerScript::setParameters(Entity* player, Entity* floor, ScriptManager* scriptManager) {
+void PlayerManagerScript::setParameters(Entity* player, Entity* floor, FirstPersonCameraScript* fps, ScriptManager* scriptManager) {
 	this->player = player;
 	this->scriptManager = scriptManager;
 	this->floor = floor;
+	this->fps = fps;
 }
 
 void PlayerManagerScript::shoot() {
@@ -36,7 +37,9 @@ void PlayerManagerScript::tickScript(float deltaTime)
 {
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && glfwGetTime() - lastBullet > bulletCd && bullets > 0) {
 		lastBullet = glfwGetTime();
-		bullets--;
+		if (!fps->isPoweredUp()) {
+			bullets--;
+		}
 		shoot();
 	}
 
@@ -51,5 +54,12 @@ void PlayerManagerScript::tickScript(float deltaTime)
 		ammo = true;
 		world->destroy(noAmmo);
 		bullets = 20;
+	}
+
+	if (fps->isPoweredUp()) {
+		bulletCd = 0.1;
+	}
+	else {
+		bulletCd = 0.5;
 	}
 }
