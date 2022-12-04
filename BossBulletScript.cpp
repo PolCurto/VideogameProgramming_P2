@@ -1,30 +1,32 @@
-#include "BulletScript.h"
+#include "BossBulletScript.h"
 
-void BulletScript::startScript() {
+void BossBulletScript::startScript() {
 }
 
-void BulletScript::setParameters(Entity* player, Entity* floor) {
+void BossBulletScript::setParameters(Entity* boss, Entity* player) {
 
-	ComponentHandle<Camera> cam = player->get<Camera>();
+	glm::vec3 posBoss = boss->get<Transform3D>()->position;
+	glm::vec3 posPlayer = player->get<Camera>()->position;
 
+	this->boss = boss;
 	this->player = player;
-	dir = cam->orientation;
 
-	this->floor = floor;
+	dir = glm::normalize(posBoss - posPlayer);
+
 	time = glfwGetTime();
 }
 
-void BulletScript::checkCollisions() {
+void BossBulletScript::checkCollisions() {
 
 	world->each<CubeCollider>([&](Entity* other_ent, ComponentHandle<CubeCollider> other_collider) {
 
-		if (other_ent->getEntityId() == player->getEntityId() || other_ent->getEntityId() == entity->getEntityId() || other_ent->getEntityId() == floor->getEntityId()) {
+		if (other_ent->getEntityId() != player->getEntityId()) {
 			return;
 		}
-		
-		glm::vec3 pos = other_ent->get<Transform3D>()->position;
-		ComponentHandle<Transform3D> posBullet = entity->get<Transform3D>();	
-		
+
+		glm::vec3 pos = other_ent->get<Camera>()->position;
+		ComponentHandle<Transform3D> posBullet = entity->get<Transform3D>();
+
 		if (posBullet->position.x < pos.x + other_collider->width && posBullet->position.x > pos.x - other_collider->width &&
 			posBullet->position.y < pos.y + other_collider->height && posBullet->position.y > pos.y - other_collider->height &&
 			posBullet->position.z < pos.z + other_collider->length && posBullet->position.z > pos.z - other_collider->length) {
@@ -33,23 +35,23 @@ void BulletScript::checkCollisions() {
 			world->destroy(entity);
 
 		}
-		
+
 		});
 }
 
-void BulletScript::move(float speedDelta) {
-	
+void BossBulletScript::move(float speedDelta) {
+
 	ComponentHandle<Transform3D> transform = entity->get<Transform3D>();
 
-	transform->position += dir * speedDelta;
+	transform->position -= dir * speedDelta;
 
 }
 
-void BulletScript::tickScript(float deltaTime) {
+void BossBulletScript::tickScript(float deltaTime) {
 
 	float speedDelta = speed * deltaTime;
 
-	if (glfwGetTime() - time > 3) {
+	if (glfwGetTime() - time > 6) {
 		world->destroy(entity);
 	}
 

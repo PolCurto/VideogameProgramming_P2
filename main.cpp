@@ -135,12 +135,12 @@ void SetupWorld() {
 
 	rs->setCamera(player);
 
-	player->assign<CubeCollider>(1, 1, 1);
+	player->assign<CubeCollider>(1.5, 1.5, 1.5);
 
 	Entity* lifeBar = CreateEntity2D(glm::vec2(50, 20), 0.f, 1.f, "Textures/3_hearts.png", glm::vec3(1., 1., 1.), true);
 
 	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -4, 52), 75, "Meshes/plane.obj", "Textures/wall.png");
-	floor->assign<CubeCollider>(75, 1, 75);
+	floor->assign<CubeCollider>(75, 2, 75);
 
 	Entity* powerUp = CreateEntity3DWithMesh(glm::vec3(60, -3, 52), 1, "Meshes/teapot2.obj", "Textures/skybox.png");
 	PowerUpScript* powerUpScript = new PowerUpScript(window, world, powerUp);

@@ -38,7 +38,7 @@ private:
 
     glm::vec3 direction = glm::vec3(1., 0., 0.);
     
-    float speed = 0.01f;
+    float speed = 0.015f;
     float sensitivity = 100.0f;
     float jumpStart = 0;
     float dashStart = 0;

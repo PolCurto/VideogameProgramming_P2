@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BossBulletScript.cpp" />
     <ClCompile Include="BossScript.cpp" />
     <ClCompile Include="BulletScript.cpp" />
     <ClCompile Include="Components.cpp" />
@@ -183,6 +184,7 @@
     <None Include="unlit.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BossBulletScript.h" />
     <ClInclude Include="BossScript.h" />
     <ClInclude Include="BulletScript.h" />
     <ClInclude Include="EBO.h" />

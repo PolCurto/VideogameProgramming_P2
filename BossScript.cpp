@@ -1,10 +1,24 @@
 #include "BossScript.h"
+#include "BossBulletScript.h"
+#include "ScriptManager.h"
+
+
 
 void BossScript::startScript() {
 }
 
-void BossScript::setTarget(Entity* player) {
+Entity* BossScript::CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath) {
+	Entity* ent = world->create();
+	ent->assign<Transform3D>(position, scale);
+	ent->assign<MeshComponent>(texFilepath, meshFilepath);
+
+	return ent;
+}
+
+void BossScript::setParameters(Entity* player, ScriptManager* scriptManager) {
 	this->player = player;
+	this->scriptManager = scriptManager;
+	previousShot = glfwGetTime();
 }
 
 void BossScript::checkCollisions() {
@@ -35,26 +49,27 @@ void BossScript::checkPhase() {
 
 	if (phase == 2) {
 		texture->textureFilepath = "Textures/wall.png";
+		delay = 2;
 	}
 
 	if (phase == 3) {
 		texture->textureFilepath = "Textures/.png";
-		speed = 0.015;
+		speed = 0.02;
 	}
 
 }
 
 void BossScript::move(float speedDelta) {
 
-	ComponentHandle<Transform3D> enemy = entity->get<Transform3D>();
+	ComponentHandle<Transform3D> boss = entity->get<Transform3D>();
 	ComponentHandle<Camera> cam = player->get<Camera>();
 	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
 
 
-	currDir = glm::normalize(enemy->position - cam->position);
+	currDir = glm::normalize(boss->position - cam->position);
 
-	glm::vec3 currentPosition = enemy->position;
-	glm::vec3 desiredPosition = enemy->position;
+	glm::vec3 currentPosition = boss->position;
+	glm::vec3 desiredPosition = boss->position;
 
 	
 	desiredPosition -= currDir * speedDelta;
@@ -88,9 +103,30 @@ void BossScript::move(float speedDelta) {
 
 		});
 
-	enemy->position.x = desiredPosition.x;
-	enemy->position.z = desiredPosition.z;
+	if (phase != 3) {
+		boss->position.x = desiredPosition.x;
+		boss->position.z = desiredPosition.z;
+	}
+	if (phase == 3) {
+		boss->position = desiredPosition;
+	}
+	
 
+}
+
+void BossScript::shoot() {
+
+	ComponentHandle<Transform3D> boss = entity->get<Transform3D>();
+
+	if (glfwGetTime() - previousShot > delay && phase != 3) {
+		Entity* bullet = CreateEntity3DWithMesh(glm::vec3(boss->position), 1, "Meshes/bala.obj", "Textures/wall2.png");
+		BossBulletScript* bulletScript = new BossBulletScript(window, world, bullet);
+		bullet->assign<ScriptComponent>(scriptManager->AddScript(bulletScript));
+		bulletScript->setParameters(entity, player);
+		bullet->assign<CubeCollider>(0.25, 0.25, 0.25);
+
+		previousShot = glfwGetTime();
+	}
 }
 
 void BossScript::tickScript(float deltaTime) {
@@ -119,5 +155,5 @@ void BossScript::tickScript(float deltaTime) {
 	}
 
 	checkPhase();
-
+	shoot();
 }

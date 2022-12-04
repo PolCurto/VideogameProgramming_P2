@@ -28,7 +28,7 @@ void SpawnerScript::tickScript(float deltaTime)
 	t1 += deltaTime;
 	t2 += deltaTime;
 
-	if (glfwGetTime() < 8) {
+	if (glfwGetTime() < 7) {
 		if (t1 > delay1) {
 			t1 = 0;
 
@@ -50,13 +50,13 @@ void SpawnerScript::tickScript(float deltaTime)
 		}
 	}
 	else {
-		if (!bossSpawned && glfwGetTime() >= 12) {
+		if (!bossSpawned && glfwGetTime() >= 8) {
 			bossSpawned = true;
 
 			Entity* boss = CreateEntity3DWithMesh(glm::vec3(52, 7, 90), 2, "Meshes/cube.obj", "Textures/skybox.png");
 			BossScript* bossScript = new BossScript(window, world, boss);
 			boss->assign<ScriptComponent>(scriptManager->AddScript(bossScript));
-			bossScript->setTarget(target);
+			bossScript->setParameters(target, scriptManager);
 			boss->assign<CubeCollider>(2.5, 2.5, 2.5);
 		}
 	}

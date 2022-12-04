@@ -1,5 +1,6 @@
 #pragma once
 #include "Script.h"
+#include "ScriptManager.h"
 
 using namespace std;
 
@@ -12,7 +13,9 @@ public:
 
     void startScript() override;
 
-    void setTarget(Entity* player);
+    Entity* CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath);
+
+    void setParameters(Entity* player, ScriptManager* scriptManager);
 
     void checkCollisions();
 
@@ -20,16 +23,22 @@ public:
 
     void move(float speedDelta);
 
+    void shoot();
+
     void tickScript(float deltaTime) override;
 
 private:
 
 
     Entity* player;
+    ScriptManager* scriptManager;
 
     glm::vec3 currDir;
 
     float speed = 0.005f;
+    float delay = 4;
+    float previousShot = 0;
+
     int life = 15;
     int phase = 1;
 
