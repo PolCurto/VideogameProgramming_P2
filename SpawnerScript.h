@@ -19,11 +19,13 @@ public:
 
 private:
 
-    float delay1 = 2500.f;
-    float delay2 = 5000.f;
+    float delay1 = 3000.f;
+    float delay2 = 6000.f;
     float t1 = 0;
     float t2 = 0;
     int counter = 0;
+
+    bool bossSpawned = false;
 
     ScriptManager* scriptManager;
     Entity* target;

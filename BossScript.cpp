@@ -1,13 +1,13 @@
-#include "Enemy2Script.h"
+#include "BossScript.h"
 
-void Enemy2Script::startScript() {
+void BossScript::startScript() {
 }
 
-void Enemy2Script::setTarget(Entity* player) {
+void BossScript::setTarget(Entity* player) {
 	this->player = player;
 }
 
-void Enemy2Script::checkCollisions() {
+void BossScript::checkCollisions() {
 
 	world->each<CubeCollider>([&](Entity* other_ent, ComponentHandle<CubeCollider> other_collider) {
 
@@ -16,11 +16,11 @@ void Enemy2Script::checkCollisions() {
 		}
 
 		glm::vec3 pos = other_ent->get<Camera>()->position;
-		ComponentHandle<Transform3D> posPlayer = entity->get<Transform3D>();
+		ComponentHandle<Transform3D> posBoss = entity->get<Transform3D>();
 
-		if (posPlayer->position.x < pos.x + other_collider->width && posPlayer->position.x > pos.x - other_collider->width &&
-			posPlayer->position.y < pos.y + other_collider->height && posPlayer->position.y > pos.y - other_collider->height &&
-			posPlayer->position.z < pos.z + other_collider->length && posPlayer->position.z > pos.z - other_collider->length) {
+		if (posBoss->position.x < pos.x + other_collider->width && posBoss->position.x > pos.x - other_collider->width &&
+			posBoss->position.y < pos.y + other_collider->height && posBoss->position.y > pos.y - other_collider->height &&
+			posBoss->position.z < pos.z + other_collider->length && posBoss->position.z > pos.z - other_collider->length) {
 
 			other_collider->collidedWith = true;
 
@@ -29,17 +29,36 @@ void Enemy2Script::checkCollisions() {
 		});
 }
 
-void Enemy2Script::move(float speedDelta) {
+void BossScript::checkPhase() {
+
+	ComponentHandle<MeshComponent> texture = entity->get<MeshComponent>();
+
+	if (phase == 2) {
+		texture->textureFilepath = "Textures/wall.png";
+	}
+
+	if (phase == 3) {
+		texture->textureFilepath = "Textures/.png";
+		speed = 0.015;
+	}
+
+}
+
+void BossScript::move(float speedDelta) {
 
 	ComponentHandle<Transform3D> enemy = entity->get<Transform3D>();
 	ComponentHandle<Camera> cam = player->get<Camera>();
+	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
+
 
 	currDir = glm::normalize(enemy->position - cam->position);
 
 	glm::vec3 currentPosition = enemy->position;
 	glm::vec3 desiredPosition = enemy->position;
 
+	
 	desiredPosition -= currDir * speedDelta;
+	
 
 	world->each<CubeCollider>([&](Entity* ent, ComponentHandle<CubeCollider> cubeColl) {
 
@@ -69,14 +88,14 @@ void Enemy2Script::move(float speedDelta) {
 
 		});
 
-	enemy->position = desiredPosition;
+	enemy->position.x = desiredPosition.x;
+	enemy->position.z = desiredPosition.z;
 
 }
 
-void Enemy2Script::tickScript(float deltaTime) {
+void BossScript::tickScript(float deltaTime) {
 
 	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
-	ComponentHandle<MeshComponent> texture = entity->get<MeshComponent>();
 
 	float speedDelta = speed * deltaTime;
 	move(speedDelta);
@@ -84,7 +103,21 @@ void Enemy2Script::tickScript(float deltaTime) {
 
 	if (collider->collidedWith) {
 		collider->collidedWith = false;
+		life--;
+	}
+
+	if (life == 10) {
+		phase = 2;
+	}
+
+	if (life == 5) {
+		phase = 3;
+	}
+
+	if (life <= 0) {
 		world->destroy(entity);
 	}
+
+	checkPhase();
 
 }

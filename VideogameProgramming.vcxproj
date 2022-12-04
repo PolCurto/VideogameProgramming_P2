@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BossScript.cpp" />
     <ClCompile Include="BulletScript.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="EBO.cpp" />
@@ -182,6 +183,7 @@
     <None Include="unlit.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BossScript.h" />
     <ClInclude Include="BulletScript.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ECS.h" />
@@ -210,9 +212,13 @@
     <Image Include="Textures\1_heart.png" />
     <Image Include="Textures\2_hearts.png" />
     <Image Include="Textures\3_hearts.png" />
+    <Image Include="Textures\mirilla.png" />
     <Image Include="Textures\No_Ammo.png" />
+    <Image Include="Textures\power_up.png" />
+    <Image Include="Textures\sky.png" />
     <Image Include="Textures\skybox.png" />
     <Image Include="Textures\wall.png" />
+    <Image Include="Textures\wall2.png" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Meshes\boat_large.obj">

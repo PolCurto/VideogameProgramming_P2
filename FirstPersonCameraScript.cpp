@@ -39,7 +39,7 @@ void FirstPersonCameraScript::checkPowerUp() {
 		});
 
 	if (poweredUp) {
-		speed = 0.03;
+		speed = 0.04;
 	}
 
 	if (poweredUp && glfwGetTime() - lastPowered > 10) {
@@ -273,7 +273,13 @@ void FirstPersonCameraScript::checkHits() {
 		}
 	}
 
-	
+	if (!vulnerable && !poweredUp) {
+		speed = 0.02;
+	}
+
+	if (vulnerable && !poweredUp) {
+		speed = 0.01;
+	}
 
 	if (glfwGetTime() - lastVulnerable > 2) {
 		vulnerable = true;

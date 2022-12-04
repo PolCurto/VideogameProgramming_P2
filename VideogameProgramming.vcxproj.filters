@@ -111,6 +111,9 @@
     <ClCompile Include="Enemy2Script.cpp">
       <Filter>Archivos de origen\Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="BossScript.cpp">
+      <Filter>Archivos de origen\Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
@@ -208,6 +211,9 @@
     <ClInclude Include="Enemy2Script.h">
       <Filter>Archivos de encabezado\Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="BossScript.h">
+      <Filter>Archivos de encabezado\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\skybox.png">
@@ -226,6 +232,18 @@
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
     <Image Include="Textures\No_Ammo.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\mirilla.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\power_up.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\sky.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\wall2.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
   </ItemGroup>
