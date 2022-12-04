@@ -204,8 +204,6 @@ void FirstPersonCameraScript::moveView() {
 
 	ComponentHandle<Camera> cam = entity->get<Camera>();
 
-	cout << cam->position.x << " , " << cam->position.z << endl;
-
 	// Stores the coordinates of the cursor
 	double mouseX;
 	double mouseY;
@@ -245,24 +243,32 @@ void FirstPersonCameraScript::checkHits() {
 
 	ComponentHandle<Sprite> spr = lifeBar->get<Sprite>();
 
-	if (vulnerable) {
-		if (collider->collidedWith) {
-			collider->collidedWith = false;
-			vulnerable = false;
+	
+	if (collider->collidedWith) {
+		collider->collidedWith = false;
+
+		if (vulnerable) {
 			lastVulnerable = glfwGetTime();
 			life--;
+			vulnerable = false;
+
+			cout << "se acabo" << endl;
+
+
+			if (life == 2) {
+				spr->filepath = "Textures/2_hearts.png";
+			}
+			if (life == 1) {
+				spr->filepath = "Textures/1_heart.png";
+			}
+			if (life <= 0) {
+				alive = false;
+			}
+
 		}
 	}
 
-	if (life == 2) {
-		spr->filepath = "Textures/2_hearts.png";
-	}
-	if (life == 1) {
-		spr->filepath = "Textures/1_heart.png";
-	}
-	if (life <= 0) {
-		alive = false;
-	}
+	
 
 	if (glfwGetTime() - lastVulnerable > 2) {
 		vulnerable = true;

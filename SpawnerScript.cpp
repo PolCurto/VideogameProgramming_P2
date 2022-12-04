@@ -40,7 +40,7 @@ void SpawnerScript::tickScript(float deltaTime)
 	if (t2 > delay2) {
 		t2 = 0;
 
-		Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, 10., 99.), 0.5, "Meshes/character_medium.obj", "Textures/skybox.png");
+		Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, 10., 99.), 0.5, "Meshes/bala.obj", "Textures/wall.png");
 		Enemy2Script* enemyScript = new Enemy2Script(window, world, enemy);
 		enemy->assign<ScriptComponent>(scriptManager->AddScript(enemyScript));
 		enemyScript->setTarget(target);
