@@ -11,6 +11,8 @@ void FirstPersonCameraScript::setParameters(Entity* lifeBar, Entity* powerUp) {
 
 void FirstPersonCameraScript::checkPowerUp() {
 
+	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
+
 	world->each<CubeCollider>([&](Entity* other_ent, ComponentHandle<CubeCollider> other_collider) {
 
 		if (other_ent->getEntityId() != powerUp->getEntityId()) {
@@ -18,11 +20,11 @@ void FirstPersonCameraScript::checkPowerUp() {
 		}
 
 		glm::vec3 pos = other_ent->get<Transform3D>()->position;
-		ComponentHandle<Transform3D> posPlayer = entity->get<Transform3D>();
+		ComponentHandle<Camera> posPlayer = entity->get<Camera>();
 
-		if (posPlayer->position.x < pos.x + other_collider->width && posPlayer->position.x > pos.x - other_collider->width &&
-			posPlayer->position.y < pos.y + other_collider->height && posPlayer->position.y > pos.y - other_collider->height &&
-			posPlayer->position.z < pos.z + other_collider->length && posPlayer->position.z > pos.z - other_collider->length) {
+		if (posPlayer->position.x - collider < pos.x + other_collider->width && posPlayer->position.x + collider > pos.x - other_collider->width &&
+			posPlayer->position.y - collider < pos.y + other_collider->height && posPlayer->position.y + collider > pos.y - other_collider->height &&
+			posPlayer->position.z - collider < pos.z + other_collider->length && posPlayer->position.z + collider > pos.z - other_collider->length) {
 
 			other_collider->collidedWith = true;
 			poweredUp = true;
@@ -284,7 +286,5 @@ void FirstPersonCameraScript::tickScript(float deltaTime) {
 
 	moveView();
 	checkHits();
-	checkPowerUp();
-
-	
+	checkPowerUp();	
 }
