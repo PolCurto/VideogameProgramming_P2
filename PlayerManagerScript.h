@@ -17,6 +17,8 @@ public:
 
     Entity* CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath);
 
+    void showMessages();
+
     void shoot();
 
     void tickScript(float deltaTime) override;
@@ -26,10 +28,12 @@ private:
     Entity* player;
     Entity* floor;
     Entity* noAmmo;
+    Entity* poweredUp;
     FirstPersonCameraScript* fps;
     ScriptManager* scriptManager;
 
     bool ammo = true;
+    bool powerUp = false;
 
     float bulletCd = 0.5;
     float lastBullet = 0;

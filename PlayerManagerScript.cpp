@@ -22,6 +22,30 @@ void PlayerManagerScript::setParameters(Entity* player, Entity* floor, FirstPers
 	this->fps = fps;
 }
 
+void PlayerManagerScript::showMessages() {
+
+	if (bullets <= 0 && ammo) {
+		ammo = false;
+		noAmmo = world->create();
+		noAmmo->assign<Transform2D>(glm::vec2(705, 775), 0.f, 20.f);
+		noAmmo->assign<Sprite>("Textures/no_ammo.png", glm::vec3(1., 1., 1.), true);
+	}
+
+	if (fps->isPoweredUp() && !powerUp) {
+		powerUp = true;
+		poweredUp = world->create();
+		poweredUp->assign<Transform2D>(glm::vec2(705, 30), 0.f, 20.f);
+		poweredUp->assign<Sprite>("Textures/power_up.png", glm::vec3(1., 1., 1.), true);
+	}
+	
+	if (!fps->isPoweredUp() && powerUp) {
+		world->destroy(poweredUp);
+	}
+
+
+}
+
+
 void PlayerManagerScript::shoot() {
 
 	ComponentHandle<Camera> cam = player->get<Camera>();
@@ -43,12 +67,7 @@ void PlayerManagerScript::tickScript(float deltaTime)
 		shoot();
 	}
 
-	if (bullets <= 0 && ammo) {
-		ammo = false;
-		noAmmo = world->create();
-		noAmmo->assign<Transform2D>(glm::vec2(705, 775), 0.f, 20.f);
-		noAmmo->assign<Sprite>("Textures/no_ammo.png", glm::vec3(1., 1., 1.), true);
-	}
+	showMessages();
 
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
 		ammo = true;
@@ -62,4 +81,5 @@ void PlayerManagerScript::tickScript(float deltaTime)
 	else {
 		bulletCd = 0.5;
 	}
+
 }

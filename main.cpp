@@ -20,7 +20,6 @@
 #include "ScriptManager.h"
 #include "FirstPersonCameraScript.h"
 #include "Script.h"
-#include "LifeBarScript.h"
 #include "PlayerManagerScript.h"
 #include "PowerUpScript.h"
 
@@ -139,8 +138,6 @@ void SetupWorld() {
 	player->assign<CubeCollider>(1, 1, 1);
 
 	Entity* lifeBar = CreateEntity2D(glm::vec2(50, 20), 0.f, 1.f, "Textures/3_hearts.png", glm::vec3(1., 1., 1.), true);
-	LifeBarScript* lifeBarScript = new LifeBarScript(window, world, lifeBar);
-	lifeBar->assign<ScriptComponent>(scriptManager->AddScript(lifeBarScript));
 
 	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -4, 52), 75, "Meshes/plane.obj", "Textures/wall.png");
 	floor->assign<CubeCollider>(75, 1, 75);
