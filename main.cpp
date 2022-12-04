@@ -22,6 +22,7 @@
 #include "Script.h"
 #include "LifeBarScript.h"
 #include "PlayerManagerScript.h"
+#include "PowerUpScript.h"
 
 #include "ECS.h"
 #include "SpawnerScript.h"
@@ -128,7 +129,7 @@ void SetupWorld() {
 
 	ScriptManager* scriptManager = scriptSystem->getScriptManager();
 
-	Entity* player = CreateCamera(glm::vec3(52.0f, 2.f, 52.0f));
+	Entity* player = CreateCamera(glm::vec3(52.0f, 2.f, 58.0f));
 	FirstPersonCameraScript* fps = new FirstPersonCameraScript(window, world, player);
 	
 	player->assign<ScriptComponent>(scriptManager->AddScript(fps));
@@ -141,10 +142,15 @@ void SetupWorld() {
 	LifeBarScript* lifeBarScript = new LifeBarScript(window, world, lifeBar);
 	lifeBar->assign<ScriptComponent>(scriptManager->AddScript(lifeBarScript));
 
-	fps->setLifeBar(lifeBar);
+	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -4, 52), 75, "Meshes/plane.obj", "Textures/wall.png");
+	floor->assign<CubeCollider>(75, 1, 75);
 
-	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -2, 52), 50, "Meshes/plane.obj", "Textures/wall2.png");
-	floor->assign<CubeCollider>(54, 1, 54);
+	Entity* powerUp = CreateEntity3DWithMesh(glm::vec3(52, -3, 52), 1, "Meshes/teapot2.obj", "Textures/skybox.png");
+	PowerUpScript* powerUpScript = new PowerUpScript(window, world, powerUp);
+	powerUp->assign<ScriptComponent>(scriptManager->AddScript(powerUpScript));
+	powerUp->assign<CubeCollider>(1, 1, 1);
+
+	fps->setParameters(lifeBar, powerUp);
 
 	Entity* playerManager = CreateEntity3DEmpty();
 	PlayerManagerScript* playerManagerScript = new PlayerManagerScript(window, world, playerManager);
@@ -155,60 +161,54 @@ void SetupWorld() {
 	SpawnerScript* spawner_script = new SpawnerScript(window, world, spawner);
 	spawner->assign<ScriptComponent>(scriptManager->AddScript(spawner_script));
 	spawner_script->setParameters(scriptManager, player);
+
+	
+
 		
 	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/sky.png");
 
 
 	
-	//28x28
+	
 	string map[] = { 
-		"###########################", 
-		"#-------------------------#", 
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"!-------------------------!",
-		"!-------------------------!",
-		"!-------------------------!",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"#-------------------------#",
-		"###########################",
+		"##################", 
+		"#----------------#", 
+		"#----------------#",
+		"#----------------#",
+		"#----------------#",
+		"#----------------#",
+		"#----------------#",
+		"!----------------!",
+		"!----------------!"
+		"!----------------!",
+		"#----------------#",
+		"#----------------#",
+		"#----------------#",
+		"#----------------#",
+		"#----------------#",
+		"#----------------#",
+		"##################",
 
 	};
 
-	for (int k = 0; k < 2; k++) {
-		for (int i = 0; i < 27; i++) {
-			for (int j = 0; j < 27; j++) {
+	for (int k = 0; k < 3; k++) {
+		for (int i = 0; i < 16; i++) {
+			for (int j = 0; j < 18; j++) {
 				
 				if (map[i][j] == '!' && k < 1) {
-					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 4, k * 4, j * 4), 2, "Meshes/cube2.obj", "");
-					wall->assign<CubeCollider>(2.5, 2.5, 2.5);
+					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 8, k * 8, j * 8), 4, "Meshes/cube2.obj", "");
+					wall->assign<CubeCollider>(5, 5, 5);
 				}
 				else {
 					if (map[i][j] == '#' || map[i][j] == '!') {
-						Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 4, k * 4, j * 4), 2, "Meshes/cube2.obj", "Textures/wall2.png");
-						wall->assign<CubeCollider>(2.5, 2.5, 2.5);
+						Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 8, k * 8, j * 8), 4, "Meshes/cube2.obj", "Textures/wall2.png");
+						wall->assign<CubeCollider>(5, 5, 5);
 					}
 				}
 			}
 		}
 	}
+	
 	
 
 	

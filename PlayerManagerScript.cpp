@@ -1,5 +1,6 @@
 #include "PlayerManagerScript.h"
 #include "BulletScript.h"
+#include "PowerUpScript.h"
 #include "ScriptManager.h"
 
 void PlayerManagerScript::startScript()

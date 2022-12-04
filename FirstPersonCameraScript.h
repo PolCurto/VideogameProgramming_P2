@@ -13,7 +13,9 @@ public:
 
     void startScript() override;
 
-    void setLifeBar(Entity* lifeBar);
+    void setParameters(Entity* lifeBar, Entity* powerUp);
+
+    void checkPowerUp();
 
     void move(float speedDelta);
 
@@ -30,6 +32,7 @@ public:
 private:
 
     Entity* lifeBar;
+    Entity* powerUp;
 
     glm::vec3 direction = glm::vec3(1., 0., 0.);
     
@@ -48,6 +51,7 @@ private:
     bool canShoot = true;
     bool vulnerable = true;
     bool alive = true;
+    bool poweredUp = false;
 
     int dir = 1;
     int numJumps = 2;
@@ -59,4 +63,5 @@ private:
     float yaw = 0.0f;
     float pitch = 0.0f;
     float lastVulnerable = 0;
+    float lastPowered = 0;
 };

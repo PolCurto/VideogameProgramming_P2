@@ -22,7 +22,6 @@ void Enemy1Script::checkCollisions() {
 			posBullet->position.y < pos.y + other_collider->height && posBullet->position.y > pos.y - other_collider->height &&
 			posBullet->position.z < pos.z + other_collider->length && posBullet->position.z > pos.z - other_collider->length) {
 
-			cout << "se acabo" << endl;
 			other_collider->collidedWith = true;
 
 		}
@@ -88,6 +87,7 @@ void Enemy1Script::move(float speedDelta) {
 void Enemy1Script::tickScript(float deltaTime) {
 
 	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
+	ComponentHandle<MeshComponent> texture = entity->get<MeshComponent>();
 
 	float speedDelta = speed * deltaTime;
 	move(speedDelta);
@@ -96,6 +96,10 @@ void Enemy1Script::tickScript(float deltaTime) {
 	if (collider->collidedWith) {
 		collider->collidedWith = false;
 		life--;
+	}
+
+	if (life == 1) {
+		texture->textureFilepath = "Textures/wall.png";
 	}
 
 	if (life <= 0) {

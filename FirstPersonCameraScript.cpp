@@ -4,8 +4,37 @@
 void FirstPersonCameraScript::startScript() {
 }
 
-void FirstPersonCameraScript::setLifeBar(Entity* lifeBar) {
+void FirstPersonCameraScript::setParameters(Entity* lifeBar, Entity* powerUp) {
 	this->lifeBar = lifeBar;
+	this->powerUp = powerUp;
+}
+
+void FirstPersonCameraScript::checkPowerUp() {
+
+	world->each<CubeCollider>([&](Entity* other_ent, ComponentHandle<CubeCollider> other_collider) {
+
+		if (other_ent->getEntityId() != powerUp->getEntityId()) {
+			return;
+		}
+
+		glm::vec3 pos = other_ent->get<Transform3D>()->position;
+		ComponentHandle<Transform3D> posPlayer = entity->get<Transform3D>();
+
+		if (posPlayer->position.x < pos.x + other_collider->width && posPlayer->position.x > pos.x - other_collider->width &&
+			posPlayer->position.y < pos.y + other_collider->height && posPlayer->position.y > pos.y - other_collider->height &&
+			posPlayer->position.z < pos.z + other_collider->length && posPlayer->position.z > pos.z - other_collider->length) {
+
+			other_collider->collidedWith = true;
+			poweredUp = true;
+			lastPowered = glfwGetTime();
+
+		}
+
+		});
+
+	if (poweredUp && glfwGetTime() - lastPowered > 10) {
+		poweredUp = false;
+	}
 }
 
 void FirstPersonCameraScript::jump(glm::vec3* desiredPosition, float speedDelta) {
@@ -255,6 +284,7 @@ void FirstPersonCameraScript::tickScript(float deltaTime) {
 
 	moveView();
 	checkHits();
+	checkPowerUp();
 
 	
 }

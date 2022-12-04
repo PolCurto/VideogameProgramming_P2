@@ -108,6 +108,9 @@
     <ClCompile Include="PlayerManagerScript.cpp">
       <Filter>Archivos de origen\Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="PowerUpScript.cpp">
+      <Filter>Archivos de origen\Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
@@ -200,6 +203,9 @@
       <Filter>Archivos de encabezado\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="PlayerManagerScript.h">
+      <Filter>Archivos de encabezado\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpScript.h">
       <Filter>Archivos de encabezado\Scripts</Filter>
     </ClInclude>
   </ItemGroup>

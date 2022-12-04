@@ -11,6 +11,7 @@ void BulletScript::setParameters(Entity* player, Entity* floor) {
 	dir = cam->orientation;
 
 	this->floor = floor;
+	time = glfwGetTime();
 }
 
 void BulletScript::checkCollisions() {
@@ -47,6 +48,10 @@ void BulletScript::move(float speedDelta) {
 void BulletScript::tickScript(float deltaTime) {
 
 	float speedDelta = speed * deltaTime;
+
+	if (glfwGetTime() - time > 5) {
+		world->destroy(entity);
+	}
 
 	move(speedDelta);
 	checkCollisions();

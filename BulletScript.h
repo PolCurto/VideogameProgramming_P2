@@ -23,6 +23,7 @@ public:
 private:
 
     float speed = 0.25;
+    float time = 0;
 
     glm::vec3 dir;
 
