@@ -38,8 +38,13 @@ void FirstPersonCameraScript::checkPowerUp() {
 
 		});
 
+	if (poweredUp) {
+		speed = 0.03;
+	}
+
 	if (poweredUp && glfwGetTime() - lastPowered > 10) {
 		poweredUp = false;
+		speed = 0.01;
 	}
 }
 

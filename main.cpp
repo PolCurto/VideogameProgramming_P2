@@ -159,7 +159,7 @@ void SetupWorld() {
 	spawner->assign<ScriptComponent>(scriptManager->AddScript(spawner_script));
 	spawner_script->setParameters(scriptManager, player);
 
-	
+	Entity* mirilla = CreateEntity2D(glm::vec2(400, 400), 0.f, 1.f, "Textures/mirilla.png", glm::vec3(1., 1., 1.), false, glm::vec2(5, 5));
 
 		
 	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/sky.png");
