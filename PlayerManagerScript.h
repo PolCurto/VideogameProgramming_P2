@@ -39,7 +39,7 @@ private:
     float lastBullet = 0;
 
 
-    int bullets = 20;
+    int bullets = 30;
 
 };
 

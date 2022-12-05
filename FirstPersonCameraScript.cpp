@@ -286,6 +286,10 @@ void FirstPersonCameraScript::checkHits() {
 	}
 }
 
+bool FirstPersonCameraScript::isDead() {
+	return !alive;
+}
+
 void FirstPersonCameraScript::tickScript(float deltaTime) {
 
 	float speedDelta = speed * deltaTime;

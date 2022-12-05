@@ -153,6 +153,7 @@
     <ClCompile Include="Enemy1Script.cpp" />
     <ClCompile Include="Enemy2Script.cpp" />
     <ClCompile Include="FirstPersonCameraScript.cpp" />
+    <ClCompile Include="GameManagerScript.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Enemy1Script.h" />
     <ClInclude Include="Enemy2Script.h" />
     <ClInclude Include="FirstPersonCameraScript.h" />
+    <ClInclude Include="GameManagerScript.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="PlayerManagerScript.h" />

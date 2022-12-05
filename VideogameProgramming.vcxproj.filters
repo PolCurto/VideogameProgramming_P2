@@ -117,6 +117,9 @@
     <ClCompile Include="BossBulletScript.cpp">
       <Filter>Archivos de origen\Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="GameManagerScript.cpp">
+      <Filter>Archivos de origen\Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
@@ -218,6 +221,9 @@
       <Filter>Archivos de encabezado\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="BossBulletScript.h">
+      <Filter>Archivos de encabezado\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManagerScript.h">
       <Filter>Archivos de encabezado\Scripts</Filter>
     </ClInclude>
   </ItemGroup>

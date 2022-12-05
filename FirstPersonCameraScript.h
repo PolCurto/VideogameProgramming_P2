@@ -29,6 +29,8 @@ public:
 
     void moveView();
 
+    bool isDead();
+
     void tickScript(float deltaTime) override;
 
 private:

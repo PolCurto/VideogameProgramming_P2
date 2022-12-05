@@ -22,6 +22,7 @@
 #include "Script.h"
 #include "PlayerManagerScript.h"
 #include "PowerUpScript.h"
+#include "GameManagerScript.h"
 
 #include "ECS.h"
 #include "SpawnerScript.h"
@@ -43,6 +44,8 @@ float t = 0;
 time_t current_time;
 
 World* world;
+
+GameManagerScript* gameManagerScript;
 
 void SetupGLFW() {
 
@@ -161,6 +164,10 @@ void SetupWorld() {
 
 	Entity* mirilla = CreateEntity2D(glm::vec2(400, 400), 0.f, 1.f, "Textures/mirilla.png", glm::vec3(1., 1., 1.), false, glm::vec2(5, 5));
 
+	Entity* gameManager = CreateEntity3DEmpty();
+	gameManagerScript = new GameManagerScript(window, world, gameManager);
+	gameManager->assign<ScriptComponent>(scriptManager->AddScript(gameManagerScript));
+	gameManagerScript->setParameters(fps, spawner_script, lifeBar, mirilla);
 		
 	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/sky.png");
 
@@ -221,6 +228,7 @@ int main() {
 
 	float dt = 0;
 	float time = clock();
+	float timeRef = 0;
 
 	//Program core loop
 	while (!glfwWindowShouldClose(window)) {
@@ -241,8 +249,12 @@ int main() {
 		// Take care of GLFW events
 		glfwPollEvents();
 
+		if (gameManagerScript->isOver()) {
+			timeRef = glfwGetTime();
+		}
 
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || (gameManagerScript->isOver() && glfwGetTime() - timeRef > 3))
 		{
 			break;
 		}

@@ -25,6 +25,8 @@ public:
 
     void shoot();
 
+    bool isDead();
+
     void tickScript(float deltaTime) override;
 
 private:
@@ -41,5 +43,7 @@ private:
 
     int life = 15;
     int phase = 1;
+
+    bool alive = true;
 
 };

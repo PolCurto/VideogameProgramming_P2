@@ -61,9 +61,7 @@ void PlayerManagerScript::tickScript(float deltaTime)
 {
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && glfwGetTime() - lastBullet > bulletCd && bullets > 0) {
 		lastBullet = glfwGetTime();
-		if (!fps->isPoweredUp()) {
-			bullets--;
-		}
+		bullets--;
 		shoot();
 	}
 
@@ -72,7 +70,7 @@ void PlayerManagerScript::tickScript(float deltaTime)
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
 		ammo = true;
 		world->destroy(noAmmo);
-		bullets = 20;
+		bullets = 30;
 	}
 
 	if (fps->isPoweredUp()) {

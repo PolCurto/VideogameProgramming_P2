@@ -129,6 +129,10 @@ void BossScript::shoot() {
 	}
 }
 
+bool BossScript::isDead() {
+	return !alive;
+}
+
 void BossScript::tickScript(float deltaTime) {
 
 	ComponentHandle<CubeCollider> collider = entity->get<CubeCollider>();
@@ -151,6 +155,7 @@ void BossScript::tickScript(float deltaTime) {
 	}
 
 	if (life <= 0) {
+		alive = false;
 		world->destroy(entity);
 	}
 

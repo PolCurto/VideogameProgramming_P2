@@ -2,7 +2,6 @@
 #include "Enemy1Script.h"
 #include "Enemy2Script.h"
 #include "BossScript.h"
-#include "ScriptManager.h"
 
 void SpawnerScript::startScript()
 {
@@ -19,6 +18,10 @@ Entity* SpawnerScript::CreateEntity3DWithMesh(glm::vec3 position, float scale, c
 	ent->assign<MeshComponent>(texFilepath, meshFilepath);
 
 	return ent;
+}
+
+bool SpawnerScript::bossIsDead() {
+	return bossScript->isDead();
 }
 
 
@@ -54,7 +57,7 @@ void SpawnerScript::tickScript(float deltaTime)
 			bossSpawned = true;
 
 			Entity* boss = CreateEntity3DWithMesh(glm::vec3(52, 7, 90), 2, "Meshes/cube.obj", "Textures/skybox.png");
-			BossScript* bossScript = new BossScript(window, world, boss);
+			bossScript = new BossScript(window, world, boss);
 			boss->assign<ScriptComponent>(scriptManager->AddScript(bossScript));
 			bossScript->setParameters(target, scriptManager);
 			boss->assign<CubeCollider>(2.5, 2.5, 2.5);
