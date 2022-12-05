@@ -54,7 +54,7 @@ void BossScript::checkPhase() {
 
 	if (phase == 3) {
 		texture->textureFilepath = "Textures/.png";
-		speed = 0.02;
+		speed = 0.0175;
 	}
 
 }
