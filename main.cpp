@@ -229,6 +229,7 @@ int main() {
 	float dt = 0;
 	float time = clock();
 	float timeRef = 0;
+	bool willClose = false;
 
 	//Program core loop
 	while (!glfwWindowShouldClose(window)) {
@@ -249,13 +250,13 @@ int main() {
 		// Take care of GLFW events
 		glfwPollEvents();
 
-		if (gameManagerScript->isOver()) {
+		if (gameManagerScript->isOver() && willClose == false) {
 			timeRef = glfwGetTime();
+			willClose = true;
 		}
 
 
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || (gameManagerScript->isOver() && glfwGetTime() - timeRef > 3))
-		{
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || (gameManagerScript->isOver() && glfwGetTime() - timeRef > 3)) {
 			break;
 		}
 
