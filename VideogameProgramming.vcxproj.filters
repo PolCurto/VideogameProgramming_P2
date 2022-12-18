@@ -240,9 +240,6 @@
     <Image Include="Textures\3_hearts.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
-    <Image Include="Textures\wall.png">
-      <Filter>Archivos de recursos\Textures</Filter>
-    </Image>
     <Image Include="Textures\No_Ammo.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
@@ -252,39 +249,30 @@
     <Image Include="Textures\power_up.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
-    <Image Include="Textures\sky.png">
+    <Image Include="Textures\AngryEnemy.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
-    <Image Include="Textures\wall2.png">
+    <Image Include="Textures\ball.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\normalEnemy.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\paret.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\terra.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\Ufo_Ufo_AlbedoTransparency.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="Meshes\cube.obj">
-      <Filter>Archivos de recursos\Meshes</Filter>
-    </Object>
     <Object Include="Meshes\teapot.obj">
       <Filter>Archivos de recursos\Meshes</Filter>
     </Object>
     <Object Include="Meshes\teapot2.obj">
-      <Filter>Archivos de recursos\Meshes</Filter>
-    </Object>
-    <Object Include="Meshes\characterMedium.obj">
-      <Filter>Archivos de recursos\Meshes</Filter>
-    </Object>
-    <Object Include="Meshes\structure.obj">
-      <Filter>Archivos de recursos\Meshes</Filter>
-    </Object>
-    <Object Include="Meshes\boat_large.obj">
-      <Filter>Archivos de recursos\Meshes</Filter>
-    </Object>
-    <Object Include="Meshes\WOLF.OBJ">
-      <Filter>Archivos de recursos\Meshes</Filter>
-    </Object>
-    <Object Include="Meshes\Register.obj">
-      <Filter>Archivos de recursos\Meshes</Filter>
-    </Object>
-    <Object Include="Meshes\char.obj">
       <Filter>Archivos de recursos\Meshes</Filter>
     </Object>
     <Object Include="Meshes\flipped_sphere.obj">
@@ -294,6 +282,18 @@
       <Filter>Archivos de recursos\Meshes</Filter>
     </Object>
     <Object Include="Meshes\bala.obj">
+      <Filter>Archivos de recursos\Meshes</Filter>
+    </Object>
+    <Object Include="Meshes\ball.obj">
+      <Filter>Archivos de recursos\Meshes</Filter>
+    </Object>
+    <Object Include="Meshes\boss.obj">
+      <Filter>Archivos de recursos\Meshes</Filter>
+    </Object>
+    <Object Include="Meshes\normalEnemy.obj">
+      <Filter>Archivos de recursos\Meshes</Filter>
+    </Object>
+    <Object Include="Meshes\cubo.obj">
       <Filter>Archivos de recursos\Meshes</Filter>
     </Object>
   </ItemGroup>

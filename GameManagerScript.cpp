@@ -48,7 +48,7 @@ void GameManagerScript::tickScript(float deltaTime) {
 		youLose();
 	}
 
-	if (glfwGetTime() >= 8) {
+	if (glfwGetTime() >= 15) {
 		if (spawnerScript->bossIsDead()) {
 			youWin();
 		}

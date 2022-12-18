@@ -75,7 +75,7 @@ void FirstPersonCameraScript::dash(glm::vec3* desiredPosition, float speedDelta)
 
 	float dashspeed = 30;
 
-	if (numDashes < 1) {
+	if (numDashes < 1 || isPoweredUp()) {
 		return;
 	}
 

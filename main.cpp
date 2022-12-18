@@ -142,7 +142,7 @@ void SetupWorld() {
 
 	Entity* lifeBar = CreateEntity2D(glm::vec2(50, 20), 0.f, 1.f, "Textures/3_hearts.png", glm::vec3(1., 1., 1.), true);
 
-	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -4, 52), 75, "Meshes/plane.obj", "Textures/wall.png");
+	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -4, 52), 75, "Meshes/plane.obj", "Textures/paret.png");
 	floor->assign<CubeCollider>(75, 2, 75);
 
 	Entity* powerUp = CreateEntity3DWithMesh(glm::vec3(60, -3, 52), 1, "Meshes/teapot2.obj", "Textures/skybox.png");
@@ -169,49 +169,95 @@ void SetupWorld() {
 	gameManager->assign<ScriptComponent>(scriptManager->AddScript(gameManagerScript));
 	gameManagerScript->setParameters(fps, spawner_script, lifeBar, mirilla);
 		
-	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/sky.png");
+	Entity* skybox = CreateSkybox("Meshes/flipped_sphere.obj", "Textures/skybox.png");
 
 
 	
 	
 	string map[] = { 
-		"##############", 
-		"#------------#", 
-		"#------------#",
-		"#------------#",
-		"#------------#",
-		"#------------#",
-		"!------------!",
-		"!------------!",
-		"#------------#",
-		"#------------#",
-		"#------------#",
-		"#------------#",
-		"#------------#",
-		"##############",
+		"########", 
+		"#------#", 
+		"#------#",
+		"!------!",
+		"!------!",
+		"#------#",
+		"#------#",
+		"########",
 
 	};
 
 	for (int k = 0; k < 3; k++) {
-		for (int i = 0; i < 14; i++) {
-			for (int j = 0; j < 14; j++) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
 				
 				if (map[i][j] == '!' && k < 1) {
-					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 8, k * 8, j * 8), 4, "Meshes/cube2.obj", "");
-					wall->assign<CubeCollider>(5, 5, 5);
+					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 15, k * 15, j * 15), 0.5, "Meshes/cube.obj", "");
+					wall->assign<CubeCollider>(8, 8, 8);
+				}
+				if (map[i][j] == '.' && k < 1) {
+					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 15, k * 15, j * 15), 0.5, "Meshes/cube.obj", "Textures/paret.png");
+					wall->assign<CubeCollider>(8, 8, 8);
+				}
+				if (map[i][j] == ',' && k < 2) {
+					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 15, k * 15, j * 15), 0.5, "Meshes/cube.obj", "Textures/paret.png");
+					wall->assign<CubeCollider>(8, 8, 8);
 				}
 				else {
 					if (map[i][j] == '#' || map[i][j] == '!') {
-						Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 8, k * 8, j * 8), 4, "Meshes/cube2.obj", "Textures/wall2.png");
-						wall->assign<CubeCollider>(5, 5, 5);
+						Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 15, k * 15, j * 15), 0.5, "Meshes/cube.obj", "Textures/terra.png");
+						wall->assign<CubeCollider>(8, 8, 8);
 					}
+				}
+			}
+		}
+	}
+
+	string map2[] = {
+			"--..,,,,11111111,,,,..",
+			"---..,,,1111111,,,..-",
+			"----..,,,,,,,,,,,,..--",
+			"----....,,,,,,,,....--",
+			"------............----",
+			"--------........------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"----------------------",
+			"--------........------",
+			"------............----",
+			"----....,,,,,,,,....--",
+			"----..,,,,,,,,,,,,..--",
+			"---..,,,11111111,,,..-",
+			"--..,,,,11111111,,,,..",
+	};
+	
+	for (int k = 0; k < 3; k++) {
+		for (int i = 0; i < 22; i++) {
+			for (int j = 0; j < 22; j++) {
+
+				if (map2[i][j] == '.' && k < 1) {
+					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 3.75 + 16.875, k * 3.75 - 2, j * 3.75 + 9.85), 0.125, "Meshes/cube.obj", "Textures/paret.png");
+					wall->assign<CubeCollider>(2.5, 2.5, 2.5);
+				}
+				if (map2[i][j] == ',' && k < 2) {
+					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 3.75 + 16.875, k * 3.75 - 2, j * 3.75 + 9.85), 0.125, "Meshes/cube.obj", "Textures/paret.png");
+					wall->assign<CubeCollider>(2.5, 2.5, 2.5);
+				}
+				if (map2[i][j] == '1' && k < 3) {
+					Entity* wall = CreateEntity3DWithMesh(glm::vec3(i * 3.75 + 16.875, k * 3.75 - 2, j * 3.75 + 9.85), 0.125, "Meshes/cube.obj", "Textures/paret.png");
+					wall->assign<CubeCollider>(2.5, 2.5, 2.5);
 				}
 			}
 		}
 	}
 	
 	
-
 	
 	
 }

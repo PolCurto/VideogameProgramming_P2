@@ -107,7 +107,7 @@ void Renderer::DrawMesh(Mesh& mesh, Texture& texture, glm::mat4 projection, glm:
     model = glm::scale(model, glm::vec3(scale, scale, scale));
 
     view = glm::lookAt(cam.position, cam.position + cam.orientation, cam.up);
-    proj = glm::perspective(glm::radians(45.0f), (float)(800 / 800), 0.1f, 100.0f);
+    proj = glm::perspective(glm::radians(45.0f), (float)(800 / 800), 0.1f, 300.0f);
 
     shader->SetMatrix4("model", model);
     shader->SetMatrix4("view", view);
