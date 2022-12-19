@@ -14,7 +14,7 @@ void SpawnerScript::setParameters(ScriptManager* scriptManager, Entity* target) 
 
 Entity* SpawnerScript::CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath) {
 	Entity* ent = world->create();
-	ent->assign<Transform3D>(position, scale);
+	ent->assign<Transform3D>(position, glm::vec3(0, 0, 0), scale);
 	ent->assign<MeshComponent>(texFilepath, meshFilepath);
 
 	return ent;
@@ -45,7 +45,7 @@ void SpawnerScript::tickScript(float deltaTime)
 		if (t2 > delay2) {
 			t2 = 0;
 
-			Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, 12., 99.), 0.25, "Meshes/ball.obj", "Textures/ball.png");
+			Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, 12., 99.), 0.125, "Meshes/ball.obj", "Textures/ball.png");
 			Enemy2Script* enemyScript = new Enemy2Script(window, world, enemy);
 			enemy->assign<ScriptComponent>(scriptManager->AddScript(enemyScript));
 			enemyScript->setTarget(target);

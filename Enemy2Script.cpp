@@ -71,6 +71,8 @@ void Enemy2Script::move(float speedDelta) {
 
 	enemy->position = desiredPosition;
 
+	enemy->rotation.x = -atan2(currDir.z, currDir.x) + glm::radians(75.f);
+
 }
 
 void Enemy2Script::tickScript(float deltaTime) {

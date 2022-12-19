@@ -9,7 +9,7 @@ void ScriptSystem::tick(World* world, float deltaTime)
 
         scriptManager.tickScript(script->scriptId, deltaTime);
 
-    });
+        });
 }
 
 ScriptManager* ScriptSystem::getScriptManager() {

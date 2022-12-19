@@ -15,15 +15,16 @@ std::string get_file_contents(const char* filename);
 
 class Shader
 {
-	public:
-		GLuint ID;
-		Shader(const char* vertexFile, const char* fragmentFile);
+public:
+	GLuint ID;
+	Shader(const char* vertexFile, const char* fragmentFile);
 
-		void Activate();
-		void Delete();
+	void Activate();
+	void Delete();
 
-		void SetMatrix4(const char* name, glm::mat4 data);
-		void SetVector3f(const char* name, glm::vec3 data);
+	void SetMatrix4(const char* name, glm::mat4 data);
+	void SetVector3f(const char* name, glm::vec3 data);
+	void SetFloat(const char* name, float data);
 
 
 };

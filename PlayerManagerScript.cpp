@@ -9,7 +9,7 @@ void PlayerManagerScript::startScript()
 
 Entity* PlayerManagerScript::CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath) {
 	Entity* ent = world->create();
-	ent->assign<Transform3D>(position, scale);
+	ent->assign<Transform3D>(position, glm::vec3(0, 0, 0), scale);
 	ent->assign<MeshComponent>(texFilepath, meshFilepath);
 
 	return ent;
@@ -37,7 +37,7 @@ void PlayerManagerScript::showMessages() {
 		poweredUp->assign<Transform2D>(glm::vec2(705, 30), 0.f, 20.f);
 		poweredUp->assign<Sprite>("Textures/power_up.png", glm::vec3(1., 1., 1.), true);
 	}
-	
+
 	if (!fps->isPoweredUp() && powerUp) {
 		world->destroy(poweredUp);
 	}

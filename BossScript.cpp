@@ -9,7 +9,7 @@ void BossScript::startScript() {
 
 Entity* BossScript::CreateEntity3DWithMesh(glm::vec3 position, float scale, const char* meshFilepath, const char* texFilepath) {
 	Entity* ent = world->create();
-	ent->assign<Transform3D>(position, scale);
+	ent->assign<Transform3D>(position, glm::vec3(0, 0, 0), scale);
 	ent->assign<MeshComponent>(texFilepath, meshFilepath);
 
 	return ent;
@@ -71,9 +71,9 @@ void BossScript::move(float speedDelta) {
 	glm::vec3 currentPosition = boss->position;
 	glm::vec3 desiredPosition = boss->position;
 
-	
+
 	desiredPosition -= currDir * speedDelta;
-	
+
 
 	world->each<CubeCollider>([&](Entity* ent, ComponentHandle<CubeCollider> cubeColl) {
 
@@ -110,7 +110,7 @@ void BossScript::move(float speedDelta) {
 	if (phase == 3) {
 		boss->position = desiredPosition;
 	}
-	
+
 
 }
 

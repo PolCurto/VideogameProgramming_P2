@@ -73,7 +73,7 @@ void FirstPersonCameraScript::dash(glm::vec3* desiredPosition, float speedDelta)
 
 	ComponentHandle<Camera> cam = entity->get<Camera>();
 
-	float dashspeed = 30;
+	float dashspeed = 15;
 
 	if (numDashes < 1 || isPoweredUp()) {
 		return;
