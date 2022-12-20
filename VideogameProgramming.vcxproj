@@ -225,6 +225,7 @@
     <Image Include="Textures\power_up.png" />
     <Image Include="Textures\skybox.png" />
     <Image Include="Textures\terra.png" />
+    <Image Include="Textures\terra2.png" />
     <Image Include="Textures\Ufo_Ufo_AlbedoTransparency.png" />
   </ItemGroup>
   <ItemGroup>

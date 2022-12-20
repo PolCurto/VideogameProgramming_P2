@@ -39,7 +39,7 @@ void FirstPersonCameraScript::checkPowerUp() {
 		});
 
 	if (poweredUp) {
-		speed = 0.04;
+		speed = 0.03;
 	}
 
 	if (poweredUp && glfwGetTime() - lastPowered > 10) {
@@ -73,7 +73,7 @@ void FirstPersonCameraScript::dash(glm::vec3* desiredPosition, float speedDelta)
 
 	ComponentHandle<Camera> cam = entity->get<Camera>();
 
-	float dashspeed = 15;
+	float dashspeed = 10;
 
 	if (numDashes < 1 || isPoweredUp()) {
 		return;

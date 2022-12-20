@@ -35,28 +35,28 @@ void SpawnerScript::tickScript(float deltaTime)
 		if (t1 > delay1) {
 			t1 = 0;
 
-			Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, -3., 5.), 0.1, "Meshes/normalEnemy.obj", "Textures/normalEnemy.png");
+			Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, -2., 5.), 0.1, "Meshes/normalEnemy.obj", "Textures/normalEnemy.png");
 			Enemy1Script* enemyScript = new Enemy1Script(window, world, enemy);
 			enemy->assign<ScriptComponent>(scriptManager->AddScript(enemyScript));
 			enemyScript->setTarget(target);
-			enemy->assign<CubeCollider>(2, 2, 2);
+			enemy->assign<CubeCollider>(1.5, 1.5, 1.5);
 		}
 
 		if (t2 > delay2) {
 			t2 = 0;
 
-			Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, 12., 99.), 0.125, "Meshes/ball.obj", "Textures/ball.png");
+			Entity* enemy = CreateEntity3DWithMesh(glm::vec3(52, 20., 99.), 0.125, "Meshes/ball.obj", "Textures/ball.png");
 			Enemy2Script* enemyScript = new Enemy2Script(window, world, enemy);
 			enemy->assign<ScriptComponent>(scriptManager->AddScript(enemyScript));
 			enemyScript->setTarget(target);
-			enemy->assign<CubeCollider>(1, 1, 1);
+			enemy->assign<CubeCollider>(1.25, 1.25, 1.25);
 		}
 	}
 	else {
 		if (!bossSpawned && glfwGetTime() >= 15) {
 			bossSpawned = true;
 
-			Entity* boss = CreateEntity3DWithMesh(glm::vec3(52, 7, 90), 2, "Meshes/boss.obj", "Textures/boss.png");
+			Entity* boss = CreateEntity3DWithMesh(glm::vec3(52, 15, 90), 2, "Meshes/boss.obj", "Textures/boss.png");
 			bossScript = new BossScript(window, world, boss);
 			boss->assign<ScriptComponent>(scriptManager->AddScript(bossScript));
 			bossScript->setParameters(target, scriptManager);

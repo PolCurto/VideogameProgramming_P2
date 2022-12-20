@@ -26,6 +26,7 @@ Renderer::Renderer()
 void Renderer::Init()
 {
     shaderDefault = std::make_shared<Shader>("default.vert", "default.frag");
+    shaderSkybox = std::make_shared<Shader>("skybox.vert", "skybox.frag");
     shaderUnlit = std::make_shared<Shader>("unlit.vert", "unlit.frag");
     shaderInverted = std::make_shared<Shader>("unlit.vert", "inverted.frag");
     shaderRepeating = std::make_shared<Shader>("unlit.vert", "repeating.frag");

@@ -33,6 +33,7 @@ public:
     void Delete();
 private:
     std::shared_ptr<Shader> shaderDefault;
+    std::shared_ptr<Shader> shaderSkybox;
     std::shared_ptr<Shader> shaderUnlit;
     std::shared_ptr<Shader> shaderInverted;
     std::shared_ptr<Shader> shaderRepeating;

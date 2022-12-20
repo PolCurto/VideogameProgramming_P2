@@ -267,6 +267,9 @@
     <Image Include="Textures\Ufo_Ufo_AlbedoTransparency.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
+    <Image Include="Textures\terra2.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Object Include="Meshes\teapot.obj">
