@@ -72,8 +72,6 @@ void Enemy2Script::move(float speedDelta) {
 	enemy->position = desiredPosition;
 
 	enemy->rotation.x = -atan2(currDir.z, currDir.x) + glm::radians(75.f);
-	//enemy->rotation.y = -atan2(currDir.y, currDir.x); //+ glm::radians(75.f);
-	//enemy->rotation.z = -atan2(currDir.y, currDir.z); //+ glm::radians(75.f);
 
 }
 

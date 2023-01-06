@@ -34,6 +34,9 @@
     <Filter Include="Archivos de recursos\Meshes">
       <UniqueIdentifier>{c670ba48-e70c-4e8a-84a0-77471339641d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de recursos\Music">
+      <UniqueIdentifier>{c944cb03-e326-41d6-b005-32fb071425f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -264,10 +267,13 @@
     <Image Include="Textures\terra.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
-    <Image Include="Textures\Ufo_Ufo_AlbedoTransparency.png">
+    <Image Include="Textures\terra2.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
-    <Image Include="Textures\terra2.png">
+    <Image Include="Textures\normalEnemy2.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Textures\boss.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
   </ItemGroup>
@@ -299,5 +305,10 @@
     <Object Include="Meshes\cubo.obj">
       <Filter>Archivos de recursos\Meshes</Filter>
     </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Music\MusicaFons.wav">
+      <Filter>Archivos de recursos\Music</Filter>
+    </Media>
   </ItemGroup>
 </Project>

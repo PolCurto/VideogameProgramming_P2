@@ -125,7 +125,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -218,15 +218,16 @@
     <Image Include="Textures\3_hearts.png" />
     <Image Include="Textures\AngryEnemy.png" />
     <Image Include="Textures\ball.png" />
+    <Image Include="Textures\boss.png" />
     <Image Include="Textures\mirilla.png" />
     <Image Include="Textures\normalEnemy.png" />
+    <Image Include="Textures\normalEnemy2.png" />
     <Image Include="Textures\No_Ammo.png" />
     <Image Include="Textures\paret.png" />
     <Image Include="Textures\power_up.png" />
     <Image Include="Textures\skybox.png" />
     <Image Include="Textures\terra.png" />
     <Image Include="Textures\terra2.png" />
-    <Image Include="Textures\Ufo_Ufo_AlbedoTransparency.png" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Meshes\ball.obj">
@@ -258,6 +259,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Music\MusicaFons.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

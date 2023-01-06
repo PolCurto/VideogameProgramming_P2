@@ -50,11 +50,11 @@ void PlayerManagerScript::shoot() {
 
 	ComponentHandle<Camera> cam = player->get<Camera>();
 
-	Entity* bullet = CreateEntity3DWithMesh(glm::vec3(cam->position + (cam->orientation * 1.5f)), 0.125, "Meshes/bala.obj", "Textures/");
+	Entity* bullet = CreateEntity3DWithMesh(glm::vec3(cam->position + (cam->orientation * 1.f)), 0.02, "Meshes/ball.obj", "Textures/bullet.png");
 	BulletScript* bulletScript = new BulletScript(window, world, bullet);
 	bullet->assign<ScriptComponent>(scriptManager->AddScript(bulletScript));
 	bulletScript->setParameters(player, floor);
-	bullet->assign<CubeCollider>(0.25, 0.25, 0.25);
+	bullet->assign<CubeCollider>(0.05, 0.05, 0.05);
 }
 
 void PlayerManagerScript::tickScript(float deltaTime)

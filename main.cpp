@@ -5,6 +5,7 @@
 #include <ctime>
 #include <chrono>
 #include <stb/stb_image.h>
+#include <windows.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -145,7 +146,7 @@ void SetupWorld() {
 	Entity* floor = CreateEntity3DWithMesh(glm::vec3(52, -4, 52), 75, "Meshes/plane.obj", "Textures/terra2.png");
 	floor->assign<CubeCollider>(75, 2, 75);
 
-	Entity* powerUp = CreateEntity3DWithMesh(glm::vec3(60, -3, 52), 1, "Meshes/teapot2.obj", "Textures/skybox.png");
+	Entity* powerUp = CreateEntity3DWithMesh(glm::vec3(52, 15, 53), 1, "Meshes/teapot2.obj", "Textures/skybox.png");
 	PowerUpScript* powerUpScript = new PowerUpScript(window, world, powerUp);
 	powerUp->assign<ScriptComponent>(scriptManager->AddScript(powerUpScript));
 	powerUp->assign<CubeCollider>(1, 1, 1);
@@ -213,11 +214,11 @@ void SetupWorld() {
 	}
 
 	string map2[] = {
-			"--..,,,,11111111,,,,..--",
-			"---..,,,1111111,,,..----",
-			"----..,,,,,,,,,,,,..----",
-			"----....,,,,,,,,....----",
-			"------............------",
+			"------.,11111111,.------",
+			"------.,11111111,.------",
+			"------.,11111111,.------",
+			"------.,11111111,.------",
+			"-------.,,,,,,,,.-------",
 			"--------........--------",
 			"------------------------",
 			"------------------------",
@@ -232,11 +233,11 @@ void SetupWorld() {
 			"------------------------",
 			"------------------------",
 			"--------........--------",
-			"------............------",
-			"----....,,,,,,,,....----",
-			"----..,,,,,,,,,,,,..----",
-			"---..,,,11111111,,,..---",
-			"--..,,,,11111111,,,,..--",
+			"-------.,,,,,,,,.-------",
+			"------.,11111111,.------",
+			"------.,11111111,.------",
+			"------.,11111111,.------",
+			"------.,11111111,.------",
 	};
 
 	for (int k = 0; k < 5; k++) {
@@ -268,8 +269,7 @@ void SetupWorld() {
 		}
 	}
 
-
-
+	PlaySound("Music/MusicaFons.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
 }
 

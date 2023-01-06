@@ -1,4 +1,5 @@
 #include "GameManagerScript.h"
+#include <windows.h>
 
 
 void GameManagerScript::startScript() {
@@ -17,6 +18,7 @@ void GameManagerScript::youWin() {
 	ComponentHandle<Sprite>spr1 = lifeBar->get<Sprite>();
 	ComponentHandle<Sprite>spr2 = mirilla->get<Sprite>();
 
+	PlaySound("", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	Entity* ent = world->create();
 	ent->assign<Transform2D>(glm::vec2(400, 400), 0, 1);
 	ent->assign<Sprite>("Textures/you_win.png", glm::vec3(1., 1., 1.), true);
@@ -30,6 +32,7 @@ void GameManagerScript::youLose() {
 	ComponentHandle<Sprite>spr1 = lifeBar->get<Sprite>();
 	ComponentHandle<Sprite>spr2 = mirilla->get<Sprite>();
 
+	PlaySound("", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	Entity* ent = world->create();
 	ent->assign<Transform2D>(glm::vec2(400, 400), 0, 1);
 	ent->assign<Sprite>("Textures/game_over.png", glm::vec3(1., 1., 1.), true);
@@ -48,11 +51,10 @@ void GameManagerScript::tickScript(float deltaTime) {
 		youLose();
 	}
 
-	if (glfwGetTime() >= 15) {
+	if (glfwGetTime() >= 50) {
 		if (spawnerScript->bossIsDead()) {
 			youWin();
 		}
 	}
-	
 
 }

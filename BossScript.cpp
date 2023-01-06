@@ -48,13 +48,13 @@ void BossScript::checkPhase() {
 	ComponentHandle<MeshComponent> texture = entity->get<MeshComponent>();
 
 	if (phase == 2) {
-		texture->textureFilepath = "Textures/wall.png";
+		texture->textureFilepath = "Textures/boss2.png";
 		delay = 2;
 	}
 
 	if (phase == 3) {
-		texture->textureFilepath = "Textures/.png";
-		speed = 0.0175;
+		texture->textureFilepath = "Textures/boss3.png";
+		speed = 0.0125;
 	}
 
 }
@@ -111,6 +111,8 @@ void BossScript::move(float speedDelta) {
 		boss->position = desiredPosition;
 	}
 
+	boss->rotation.x = -atan2(currDir.z, currDir.x) - glm::radians(90.f);
+
 
 }
 
@@ -119,7 +121,7 @@ void BossScript::shoot() {
 	ComponentHandle<Transform3D> boss = entity->get<Transform3D>();
 
 	if (glfwGetTime() - previousShot > delay && phase != 3) {
-		Entity* bullet = CreateEntity3DWithMesh(glm::vec3(boss->position), 1, "Meshes/bala.obj", "Textures/wall2.png");
+		Entity* bullet = CreateEntity3DWithMesh(glm::vec3(boss->position), 0.05, "Meshes/ball.obj", "Textures/bossBullet.png");
 		BossBulletScript* bulletScript = new BossBulletScript(window, world, bullet);
 		bullet->assign<ScriptComponent>(scriptManager->AddScript(bulletScript));
 		bulletScript->setParameters(entity, player);

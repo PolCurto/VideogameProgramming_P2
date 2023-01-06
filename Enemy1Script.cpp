@@ -102,6 +102,11 @@ void Enemy1Script::tickScript(float deltaTime) {
 		life--;
 	}
 
+	if (life == 2) {
+		texture->textureFilepath = "Textures/NormalEnemy2.png";
+	}
+
+
 	if (life == 1) {
 		texture->textureFilepath = "Textures/AngryEnemy.png";
 	}
